@@ -18,8 +18,8 @@ export const Navbar = () => {
 
   const navItems = [
     { to: "/listings", label: t("nav.villages") },
-    { to: "/listings", label: t("nav.find") },
     { to: "/listings", label: t("nav.activities") },
+    { to: "/host", label: t("nav.forHosts") },
   ];
 
   return (
