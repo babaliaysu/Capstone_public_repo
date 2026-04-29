@@ -18,8 +18,8 @@ export const Navbar = () => {
 
   const navItems = [
     { to: "/listings", label: t("nav.villages") },
-    { to: "/listings", label: t("nav.find") },
     { to: "/listings", label: t("nav.activities") },
+    { to: "/host", label: t("nav.forHosts") },
   ];
 
   return (
@@ -35,7 +35,7 @@ export const Navbar = () => {
             <div className="absolute inset-0 bg-gold/30 blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
           <span className="font-serif text-2xl font-semibold tracking-tight text-foreground">
-            Kəndlər
+            Yurd
           </span>
         </Link>
 

@@ -63,6 +63,7 @@ export default {
       backgroundImage: {
         "gradient-hero": "var(--gradient-hero)",
         "gradient-warm": "var(--gradient-warm)",
+        "gradient-forest": "var(--gradient-forest)",
         "gradient-overlay": "var(--gradient-overlay)",
       },
       keyframes: {
