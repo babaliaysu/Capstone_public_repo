@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { ChevronDown } from "lucide-react";
-import { HeroScene3D } from "./HeroScene3D";
+import { ChevronDown, MapPin, Star } from "lucide-react";
 import { SearchPanel } from "./SearchPanel";
+import heroImg from "@/assets/hero/khinalig-hero.jpg";
 
 export const Hero = () => {
   const { t } = useTranslation();
@@ -39,11 +39,57 @@ export const Hero = () => {
             </div>
           </div>
 
-          {/* 3D Scene */}
-          <div className="relative h-[500px] lg:h-[600px] order-first lg:order-last animate-fade-in-slow" style={{ opacity: 0 }}>
-            <HeroScene3D />
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-xs text-muted-foreground/60 italic">
-              ↻ siçanı tərpət
+          {/* Real photo card */}
+          <div className="relative h-[460px] lg:h-[600px] order-first lg:order-last animate-fade-in-slow" style={{ opacity: 0 }}>
+            {/* Glow */}
+            <div className="absolute -inset-6 bg-gradient-to-tr from-primary/30 via-gold/20 to-accent/20 rounded-[2.5rem] blur-3xl opacity-70" />
+
+            {/* Main image */}
+            <div className="relative h-full w-full rounded-[2rem] overflow-hidden shadow-elegant ring-1 ring-white/40 group">
+              <img
+                src={heroImg}
+                alt="Xınalıq kəndinin Qafqaz dağları arasındakı panoramik görünüşü"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-[2000ms] ease-out group-hover:scale-105"
+                loading="eager"
+              />
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
+
+              {/* Floating location pill */}
+              <div className="absolute top-5 left-5 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass border border-white/50 shadow-soft animate-float">
+                <MapPin className="h-3.5 w-3.5 text-primary" />
+                <span className="text-xs font-semibold text-foreground">Xınalıq, Quba</span>
+              </div>
+
+              {/* Floating rating pill */}
+              <div className="absolute top-5 right-5 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-background/95 backdrop-blur shadow-soft animate-float" style={{ animationDelay: "0.6s" }}>
+                <Star className="h-3.5 w-3.5 fill-gold text-gold" />
+                <span className="text-xs font-bold text-foreground">4.9</span>
+                <span className="text-[10px] text-muted-foreground">· 320+</span>
+              </div>
+
+              {/* Bottom caption */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 text-background">
+                <p className="text-[11px] uppercase tracking-[0.2em] text-background/70 mb-1">
+                  Qafqazın ən qədim kəndi · 2200 m
+                </p>
+                <p className="font-serif text-2xl lg:text-3xl leading-tight">
+                  Buludların üzərində bir gecə
+                </p>
+              </div>
+            </div>
+
+            {/* Floating mini-card */}
+            <div className="hidden lg:flex absolute -bottom-6 -left-6 bg-card rounded-2xl shadow-elegant p-4 items-center gap-3 ring-1 ring-border animate-float" style={{ animationDelay: "1s" }}>
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-gold ring-2 ring-card" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-accent to-primary ring-2 ring-card" />
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-gold to-accent ring-2 ring-card" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-foreground">2,400+ qonaq</p>
+                <p className="text-[10px] text-muted-foreground">bu ay rezervasiya etdi</p>
+              </div>
             </div>
           </div>
         </div>
