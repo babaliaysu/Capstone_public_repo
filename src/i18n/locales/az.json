@@ -1,0 +1,80 @@
+{
+  "nav": {
+    "villages": "Kəndlər",
+    "find": "Ev tap",
+    "activities": "Fəaliyyətlər",
+    "host": "Evini yerləşdir",
+    "login": "Daxil ol",
+    "signup": "Qeydiyyat"
+  },
+  "hero": {
+    "tagline": "Azərbaycan kəndləri",
+    "title": "Kəndin nəfəsini yaşa",
+    "titleAccent": "həqiqi qonaqpərvərlik",
+    "subtitle": "Xınalıqdan Lahıca, dağ aullarından üzüm bağlarına — yerli ailələrin evində unudulmaz təcrübələr.",
+    "searchPlaceholder": "Hara getmək istəyirsən?",
+    "where": "Hara",
+    "when": "Nə vaxt",
+    "guests": "Qonaqlar",
+    "guestsCount": "{{count}} qonaq",
+    "search": "Axtar",
+    "scrollHint": "Aşağı sürüşdür"
+  },
+  "villages": {
+    "title": "Populyar kəndlər",
+    "subtitle": "Hər birinin öz hekayəsi var",
+    "homes": "{{count}} ev"
+  },
+  "how": {
+    "title": "Necə işləyir",
+    "subtitle": "Üç sadə addımda kənd təcrübən",
+    "step1Title": "Kəşf et",
+    "step1Desc": "Marağına və büdcənə uyğun ən yaxşı evləri sıralı şəkildə gör.",
+    "step2Title": "Seç və rezerv et",
+    "step2Desc": "Bir kliklə müraciət göndər, ev sahibindən təsdiq al.",
+    "step3Title": "Yaşa və qaytar",
+    "step3Desc": "Yerli ailənin qonağı ol, autentik təcrübələri yaşa, rəy paylaş."
+  },
+  "homes": {
+    "title": "Tövsiyə olunan evlər",
+    "subtitle": "Əvvəlki qonaqlar tərəfindən yüksək qiymətləndirilmiş",
+    "perNight": "/ gecə",
+    "rooms": "{{count}} otaq",
+    "viewAll": "Hamısına bax"
+  },
+  "activities": {
+    "title": "Sənə nə maraqlıdır?",
+    "subtitle": "Fəaliyyətə görə evlər seç",
+    "horse": "Atçılıq",
+    "hike": "Yürüyüş",
+    "cuisine": "Yerli mətbəx",
+    "crafts": "Əl işləri",
+    "fishing": "Balıq tutmaq",
+    "garden": "Bağ işləri",
+    "tea": "Çay mərasimi",
+    "music": "Aşıq musiqisi"
+  },
+  "hostCta": {
+    "tagline": "Kəndli üçün",
+    "title": "Evin var? Qonaq qəbul et, qazan.",
+    "subtitle": "Yalnız 3% komissiya. Hər rezervasiyada email bildirişi. Sən təsdiq etməsən, ev kirayələnmir.",
+    "button": "Evini yerləşdir",
+    "note": "Pulsuz qoş — yalnız satışdan komissiya"
+  },
+  "testimonials": {
+    "title": "Qonaqlarımız nə deyir"
+  },
+  "footer": {
+    "about": "Haqqımızda",
+    "discover": "Kəşf et",
+    "forHosts": "Kəndlilər üçün",
+    "contact": "Əlaqə",
+    "rights": "Bütün hüquqlar qorunur",
+    "tagline": "Azərbaycan kəndlərini dünyaya açırıq"
+  },
+  "comingSoon": {
+    "title": "Tezliklə",
+    "subtitle": "Bu bölmə üzərində işləyirik",
+    "back": "Ana səhifəyə qayıt"
+  }
+}
