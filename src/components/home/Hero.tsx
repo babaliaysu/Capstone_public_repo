@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { ChevronDown } from "lucide-react";
-import { HeroScene3D } from "./HeroScene3D";
+import { ChevronDown, MapPin, Star } from "lucide-react";
 import { SearchPanel } from "./SearchPanel";
+import heroImg from "@/assets/hero/khinalig-hero.jpg";
 
 export const Hero = () => {
   const { t } = useTranslation();
