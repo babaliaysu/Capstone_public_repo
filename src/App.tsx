@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import ComingSoon from "./pages/ComingSoon.tsx";
+import Auth from "./pages/Auth.tsx";
 
 const queryClient = new QueryClient();
 
@@ -19,7 +20,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/listings" element={<ComingSoon pageTitle="Ev axtarışı" />} />
           <Route path="/host" element={<ComingSoon pageTitle="Evini yerləşdir" />} />
-          <Route path="/auth" element={<ComingSoon pageTitle="Daxil ol / Qeydiyyat" />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/dashboard" element={<ComingSoon pageTitle="Şəxsi kabinet" />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
