@@ -1,0 +1,125 @@
+{
+  "nav": {
+    "villages": "Villages",
+    "find": "Find a home",
+    "activities": "Activities",
+    "forHosts": "For hosts",
+    "host": "Host your home",
+    "login": "Sign in",
+    "signup": "Sign up"
+  },
+  "hero": {
+    "tagline": "Azerbaijani villages",
+    "title": "Live the village",
+    "titleAccent": "true hospitality",
+    "subtitle": "From Khinalig to Lahij, mountain hamlets to vineyard hills — unforgettable stays with local families.",
+    "where": "Where",
+    "when": "When",
+    "service": "Service",
+    "serviceAny": "Any service",
+    "selectRegion": "Pick a region",
+    "startDate": "Start date",
+    "endDate": "End date",
+    "search": "Search",
+    "scrollHint": "Scroll down"
+  },
+  "regions": {
+    "title": "Pick a region",
+    "Şimal": "North",
+    "Qərb": "West",
+    "Cənub": "South",
+    "Mərkəz": "Center",
+    "Naxçıvan": "Nakhchivan",
+    "Qarabağ": "Karabakh",
+    "noResults": "No regions found"
+  },
+  "service": {
+    "title": "Pick a service",
+    "searchPlaceholder": "Quick search (e.g. horse riding)",
+    "noResults": "No services found",
+    "selected": "{{count}} selected",
+    "clear": "Clear",
+    "apply": "Apply"
+  },
+  "villages": {
+    "title": "Popular villages",
+    "subtitle": "Each with its own story",
+    "homes": "{{count}} homes"
+  },
+  "how": {
+    "title": "How it works",
+    "subtitle": "Your village experience in three steps",
+    "step1Title": "Discover",
+    "step1Desc": "See the best homes ranked by your interests and budget.",
+    "step2Title": "Choose & request",
+    "step2Desc": "Send a request in one click, get confirmation from the host.",
+    "step3Title": "Stay & review",
+    "step3Desc": "Be a guest of a local family, live authentic experiences, share a review."
+  },
+  "homes": {
+    "title": "Recommended homes",
+    "subtitle": "Highly rated by previous guests",
+    "perNight": "/ night",
+    "rooms": "{{count}} rooms",
+    "viewAll": "View all"
+  },
+  "activities": {
+    "title": "What interests you?",
+    "subtitle": "Pick homes by activity"
+  },
+  "hostCta": {
+    "tagline": "For hosts",
+    "title": "Have a home? Welcome guests, earn.",
+    "subtitle": "Only 3% commission. Email notification on every reservation. Nothing books without your approval.",
+    "button": "Host your home",
+    "note": "Free to join — commission only on sales"
+  },
+  "testimonials": {
+    "title": "What our guests say"
+  },
+  "footer": {
+    "about": "About",
+    "discover": "Discover",
+    "forHosts": "For hosts",
+    "contact": "Contact",
+    "rights": "All rights reserved",
+    "tagline": "Opening Azerbaijani villages to the world"
+  },
+  "comingSoon": {
+    "title": "Coming soon",
+    "subtitle": "We are working on this section",
+    "back": "Back to home"
+  },
+  "auth": {
+    "signinTitle": "Welcome back",
+    "signinSubtitle": "Sign in to continue your journey",
+    "signupTitle": "Create account",
+    "signupSubtitle": "A few seconds — villages await you",
+    "email": "Email",
+    "password": "Password",
+    "passwordConfirm": "Confirm password",
+    "fullName": "Full name",
+    "signin": "Sign in",
+    "signup": "Sign up",
+    "noAccount": "No account?",
+    "haveAccount": "Already have an account?",
+    "loading": "Loading...",
+    "successSignin": "Welcome!",
+    "successSignup": "Account created!",
+    "back": "Home",
+    "terms": "By continuing you accept Kəndim terms of service."
+  },
+  "profile": {
+    "title": "Account",
+    "personalInfo": "Personal information",
+    "edit": "Edit",
+    "save": "Save",
+    "cancel": "Cancel",
+    "changePassword": "Change password",
+    "newPassword": "New password",
+    "submit": "Confirm",
+    "logout": "Sign out",
+    "updated": "Profile updated",
+    "passwordUpdated": "Password updated"
+  }
+}
