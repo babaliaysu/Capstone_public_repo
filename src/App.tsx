@@ -3,10 +3,12 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
-import NotFound from "./pages/NotFound.tsx";
-import ComingSoon from "./pages/ComingSoon.tsx";
-import Auth from "./pages/Auth.tsx";
+import AnaSehife from "@/frontend/sehifeler/AnaSehife";
+import TapilmadiSehife from "@/frontend/sehifeler/TapilmadiSehife";
+import TezlikleGelir from "@/frontend/sehifeler/TezlikleGelir";
+import Giris from "@/frontend/sehifeler/Giris";
+import Qeydiyyat from "@/frontend/sehifeler/Qeydiyyat";
+import Profil from "@/frontend/sehifeler/Profil";
 
 const queryClient = new QueryClient();
 
@@ -17,13 +19,19 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/listings" element={<ComingSoon pageTitle="Ev axtarışı" />} />
-          <Route path="/host" element={<ComingSoon pageTitle="Evini yerləşdir" />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<ComingSoon pageTitle="Şəxsi kabinet" />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<AnaSehife />} />
+          <Route path="/elanlar" element={<TezlikleGelir pageTitle="Elanlar" />} />
+          <Route path="/evini-yerlesdir" element={<TezlikleGelir pageTitle="Evini yerləşdir" />} />
+          <Route path="/giris" element={<Giris />} />
+          <Route path="/qeydiyyat" element={<Qeydiyyat />} />
+          <Route path="/profil" element={<Profil />} />
+          {/* Köhnə yollar üçün uyğunluq */}
+          <Route path="/auth" element={<Giris />} />
+          <Route path="/dashboard" element={<Profil />} />
+          <Route path="/listings" element={<TezlikleGelir pageTitle="Elanlar" />} />
+          <Route path="/host" element={<TezlikleGelir pageTitle="Evini yerləşdir" />} />
+          {/* CATCH-ALL HƏMİŞƏ SONUNCU */}
+          <Route path="*" element={<TapilmadiSehife />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

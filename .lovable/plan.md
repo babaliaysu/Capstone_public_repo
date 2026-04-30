@@ -1,150 +1,176 @@
+# Kəndim — Funksional yenilənmə planı
 
-# Kənd Turizmi Platforması — Ana Səhifə (Dashboard)
+Sayt adı **Yurd → Kəndim** olaraq dəyişəcək, axtarış paneli tam funksional olacaq, qeydiyyat/daxil olma və profil işləyəcək, qovluqlar Azərbaycan dilinə çevriləcək, kod şərhləri AZ dilində yazılacaq.
 
-Bu mərhələdə yalnız **landing / ana səhifə** qurulur. Backend, qeydiyyat, elan formaları, rezervasiya məntiqi sonrakı mərhələlərə saxlanılır — amma bütün düymələr və naviqasiya gələcək səhifələr üçün hazırlanır (placeholder route-larla).
+---
 
-## Vizual istiqamət
+## 1. Brendinq dəyişikliyi
 
-- **Üslub:** Premium kənd — Airbnb + National Geographic hissi. Sadə görünməsin, lüks və davətkar olsun.
-- **Rəng paleti (HSL semantic tokens):**
-  - Background: isti krem `hsl(40 30% 96%)`
-  - Foreground (mətn): dərin tünd qəhvəyi `hsl(25 25% 12%)`
-  - Primary: terrakota / kərpic `hsl(15 55% 45%)`
-  - Accent: zeytun yaşılı `hsl(85 25% 35%)`
-  - Muted: yumşaq qum `hsl(35 20% 88%)`
-  - Gold accent (premium hiss): `hsl(40 60% 55%)`
-- **Şriftlər (Google Fonts):** Başlıqlar üçün **Fraunces** (premium serif, kənd + lüks hissi), mətn üçün **Inter** (təmiz, oxunaqlı).
-- **3D yanaşma:** İnteraktiv, amma fərah — yığcam Three.js (`@react-three/fiber` + `drei`) hero səhnəsi. Ağır model yox, **stilizə edilmiş float edən kənd elementləri** (kiçik ev, ağac, dağ siluetləri, buludlar) yumşaq hərəkətlə fırlanır, mouse hərəkətinə cavab verir. Qalan bölmələrdə parallaks və float effektləri.
+- Hər yerdə **Yurd → Kəndim** (Navbar, Auth, index.html title/meta, footer, i18n faylları AZ/EN/RU).
 
-## Sayt arxitekturası (bu mərhələ üçün route-lar)
+## 2. Axtarış paneli — tam funksional (`AxtarisPaneli`)
 
+Yeni davranış: **Hara · Vaxt · Xidmət növü · Axtar** (Qonaqlar silinir).
+
+### a) Hara (autocomplete)
+
+- Komponent: `BolgeSecici.tsx`
+- Yerli siyahı (kod içində massiv): Quba, Qusar, Xınalıq, Lahıc, Şəki, Qax, Qəbələ, İsmayıllı, Qobustan, Şamaxı, Qusar, Lerik, Lənkəran, Astara, Masallı, Tovuz, Gədəbəy, Daşkəsən, Naftalan, Naxçıvan, Ordubad, Şahbuz, Zaqatala, Balakən, Göygöl, Şuşa, Laçın, Kəlbəcər və s. (~30 ad).
+- İki rejim:
+  - **Boş input + fokus** → bütün bölgələr **kateqoriya** şəklində açılır (Şimal · Qərb · Cənub · Mərkəz · Naxçıvan · Qarabağ qruplarında).
+  - **Yazmağa başlayanda** → uyğun olanlar süzgəcdən keçib dropdown-da göstərilir.
+- Seçim olduqda input dolur, axtarış state-ə yazılır.
+
+### b) Vaxt (tarix aralığı)
+
+- Komponent: `TarixSecici.tsx` (shadcn `Calendar` + `Popover`)
+- Düymədə təqvim ikonu. Klik → təqvim açılır.
+- `mode="range"`. Mərhələlər:
+  - İlkin label: **"Başlama tarixi"**
+  - İstifadəçi başlanğıc seçir → həmin gün rənglənir, label **"Bitmə tarixi"** olur.
+  - Bitmə seçildikdə aralıq vurğulanır, panel bağlanır, axtarış state-i yenilənir.
+- `pointer-events-auto` Calendar-da.
+
+### c) Xidmət növü (Qonaqlar əvəzinə)
+
+- Komponent: `XidmetSecici.tsx`
+- Klik → popover açılır:
+  - Yuxarıda **axtarış inputu** (sürətli süzgəc).
+  - Aşağıda kateqoriya çipləri/grid: **Atçılıq · Bələdçi · Dulusçuluq · Yürüyüş · Yerli mətbəx · Balıq tutmaq · Bağ işləri · Çay mərasimi · Aşıq musiqisi · Əl işləri · Arıçılıq · Çoban təcrübəsi**.
+  - Çoxlu seçim mümkündür (chip toggle).
+- Mənbə: indi sabit massiv (`src/melumat/xidmetler.ts`), sonra elanlar bazasından dinamik gələcək (TODO şərh kimi qeyd olunur).
+
+### d) Axtar düyməsi
+
+- State-i URL parametrlərinə yazıb `/elanlar?bolge=...&baslama=...&bitme=...&xidmet=...` səhifəsinə yönəldir (səhifə hələ Coming Soon olaraq qalır, sonra qurulacaq).
+
+## 3. Auth — qeydiyyat/daxil olma + profil
+
+### Daxil ol səhifəsi (`/giris`)
+
+- Sahələr: **Email**, **Parol**, **Daxil ol** düyməsi.
+- Aşağıda kiçik mətn: *"Hesabın yoxdur? **Qeydiyyat**"* — link `/qeydiyyat`-a aparır.
+- Palitra: ağ kart + forest yaşıl aksent.
+
+### Qeydiyyat səhifəsi (`/qeydiyyat`)
+
+- **Fərqli palitra**: gold/bej dominant arxa fon (qeyd olunan fərqlilik üçün), kart isə krem rəngli.
+- Sahələr: **Ad Soyad**, **Email**, **Parol**, **Parol təsdiqi**, **Qeydiyyatdan keç** düyməsi.
+- Zod validasiya: parollar uyğun olmalı, parol ≥6, email format, ad ≥2 simvol.
+- Aşağıda link: *"Hesabın var? **Daxil ol**"*.
+
+### Davranış
+
+- Uğurlu daxil olma/qeydiyyatdan sonra **avtomatik ana səhifəyə (`/`)** yönəlmə.
+- `onAuthStateChange` listener `App.tsx`-ə qoyulur (qlobal session state).
+
+### Navbar profil ikonu
+
+- Daxil olmamış: **"Daxil ol"** düyməsi → `/giris`.
+- Daxil olmuş: **dairəvi avatar** (ad-soyadın baş hərfləri, gold ring) → klik `/profil`-ə aparır.
+
+### Profil səhifəsi (`/profil`)
+
+- Göstərir: Ad Soyad, Email (read-only display + edit mode).
+- **Məlumatları redaktə et** düyməsi → ad/email inputları aktivləşir, Saxla düyməsi.
+- **Parolu dəyiş** düyməsi → **eyni səhifədə** aşağıda yeni konteyner açılır:
+  - Yeni parol, Parol təsdiqi, Submit.
+  - Submit → `supabase.auth.updateUser({ password })`.
+- **Çıxış** düyməsi.
+
+### Backend (Supabase migration)
+
+- `profiller` cədvəli yaradılır:
+  - `istifadeci_id` (uuid, auth.users referans, unique)
+  - `ad_soyad` (text)
+  - `email` (text)
+- RLS:
+  - Hər kəs yalnız öz profilini görə/redaktə edə bilər.
+- Trigger: `handle_new_user` → qeydiyyatdan sonra avtomatik profil yaradır (raw_user_meta_data-dan ad_soyad götürür).
+
+## 4. Hero və ümumi UI təmizlikləri
+
+- Hero altındakı **"01 Hər birinin öz hekayəsi var · 02 · 03"** elementi və kənd siyahısı bölməsindəki nömrələmə **silinir**.
+- Hero "120+ kənd · 26 region" və "4.9 · 2,400+ qonaq" pill-ləri qalır.
+
+## 5. Qovluq və fayl adları → Azərbaycan dilində
+
+Yenidən adlandırma xəritəsi (yalnız layihəyə aid kod, shadcn `src/components/ui` toxunulmur):
+
+```text
+src/pages/             →  src/sehifeler/
+  Index.tsx            →    AnaSehife.tsx
+  Auth.tsx             →    Giris.tsx (+ yeni Qeydiyyat.tsx, Profil.tsx)
+  ComingSoon.tsx       →    TezlikleGelir.tsx
+  NotFound.tsx         →    TapilmadiSehife.tsx
+
+src/components/home/   →  src/komponentler/anasehife/
+  Hero.tsx             →    Banner.tsx
+  SearchPanel.tsx      →    AxtarisPaneli.tsx (+ BolgeSecici, TarixSecici, XidmetSecici)
+  PopularVillages.tsx  →    PopulyarKendler.tsx
+  RecommendedHomes.tsx →    TovsiyeEvler.tsx
+  Activities.tsx       →    Fealiyyetler.tsx
+  HowItWorks.tsx       →    NeceIsleyir.tsx
+  HostCTA.tsx          →    KendliCagirisi.tsx
+  Testimonials.tsx     →    Reyler.tsx
+  HeroScene3D.tsx      →    silinir (artıq istifadə olunmur)
+
+src/components/layout/ →  src/komponentler/maket/
+  Navbar.tsx           →    YuxariPanel.tsx
+  Footer.tsx           →    AltPanel.tsx
+  LanguageSwitcher.tsx →    DilSecici.tsx
+
+src/i18n/              →  src/dil/
+src/hooks/             →  src/qarmaqlar/
+src/lib/               →  src/kitabxana/
+src/assets/            →  src/medialar/
+  hero/                →    banner/
+  homes/               →    evler/
+  villages/            →    kendler/
+
+Yeni:
+src/melumat/           → sabit data (bolgeler.ts, xidmetler.ts)
+src/komponentler/forma/ → BolgeSecici.tsx, TarixSecici.tsx, XidmetSecici.tsx
 ```
-/                    → Ana səhifə (qurulur)
-/listings            → Ev axtarışı nəticələri (placeholder)
-/host                → "Evini yerləşdir" səhifəsi (placeholder)
-/auth                → Giriş / Qeydiyyat (placeholder)
-/dashboard           → İstifadəçi şəxsi kabineti (placeholder, qeydiyyatdan sonra)
-```
 
-## Ana səhifə bölmələri (yuxarıdan aşağı)
+**Toxunulmaz** (avtogenerasiya / standart):
 
-1. **Naviqasiya (sticky, şəffaf → scroll-da bərk)**
-   - Sol: Logo (sadə wordmark + kiçik ev/dağ ikonu)
-   - Orta: `Kəndlər` · `Ev tap` · `Fəaliyyətlər` · **`Evini yerləşdir`** (mərkəzdə vurğulanmış mətn-link, kəndli üçün giriş)
-   - Sağ: Dil seçici (AZ / RU / EN dropdown), `Daxil ol` düyməsi
+- `src/components/ui/*` (shadcn)
+- `src/integrations/supabase/*`
+- `src/main.tsx`, `src/App.tsx`, `src/index.css`, `vite.config.ts`, `tailwind.config.ts`
+- `.env`, `supabase/config.toml`
 
-2. **Hero (tam ekran, 3D interaktiv)**
-   - Sol tərəfdə böyük başlıq: *"Azərbaycanın kəndlərini kəşf et"* (Fraunces, 72px+)
-   - Alt başlıq: kənd təcrübəsi haqqında qısa cümlə
-   - Sağ tərəfdə **interaktiv 3D səhnə** — float edən ev, dağ siluetləri, buludlar, mouse-a cavab verən parallaks
-   - Aşağıda **axtarış paneli** (glass-morphism kart): Region/Kənd · Tarix · Qonaq sayı · Axtar düyməsi
+`App.tsx` import yolları və route-lar yenilənir:
 
-3. **Populyar kəndlər (scroll-snap karusel)**
-   - 6-8 kart: Xınalıq, Lahıc, Qəbələ, İsmayıllı, Şəki, Quba və s.
-   - Hər kart: foto (placeholder), ad, qısa təsvir, ev sayı, hover-da scale + gold border
+- `/` → `AnaSehife`
+- `/giris` → `Giris`
+- `/qeydiyyat` → `Qeydiyyat`
+- `/profil` → `Profil` (qorunmuş route)
+- `/elanlar` → `TezlikleGelir`
+- `/evini-yerlesdir` → `TezlikleGelir`
 
-4. **Necə işləyir? (3 addım, izometrik ikonlarla)**
-   - 01 Axtar · 02 Seç · 03 Yaşa
-   - Hər addım üçün float edən kiçik 3D ikon
+## 6. Kod şərhləri
 
-5. **Tövsiyə olunan evlər (premium kart şəbəkəsi)**
-   - 6 ev kartı: foto, kənd adı, qiymət, reytinq ulduzları, otaq sayı
-   - Hover-da yumşaq qalxma + parallaks foto effekti
-   - Qeyd: hələlik mock data, qeydiyyatdan sonra "sənin maraqlarına uyğun" başlığı ilə şəxsiləşəcək
+- Bütün yeni və redaktə olunan fayllarda funksiya/komponent təsvirləri Azərbaycan dilində şərhlərlə (`// ...` və JSDoc) yazılır ki, sonradan asanlıqla dəyişdirilə bilsin.
 
-6. **Fəaliyyətlər (interaktiv tab/pill-lər)**
-   - Atçılıq · Yürüyüş · Yerli mətbəx · Əl işləri · Balıq tutmaq · Bağ işləri
-   - Hər birinə klik → uyğun evlərə filterlə yönləndirmə (gələcəkdə)
+---
 
-7. **Kəndli üçün CTA banneri (orta bölmə, vurğulanmış)**
-   - Böyük başlıq: *"Evin var? Qonaq qəbul et, qazanc əldə et."*
-   - Qısa izah + `Evini yerləşdir` düyməsi → `/host`
-   - Fonda yumşaq paralaks kənd mənzərəsi
+## Texniki qeydlər
 
-8. **Rəylər (carousel)**
-   - Əvvəlki qonaqların qısa sitatları + ulduz reytinqi
+- **Migration**: `profiller` cədvəli + RLS + `handle_new_user` trigger.
+- **Auth ayarları**: `auto_confirm_email = true` ediləcək (plan tələbi: qeydiyyatdan dərhal sonra ana səhifəyə qayıtsın — email təsdiqi tələb olunmasın).
+- **State**: Axtarış parametrləri `useState`-də saxlanılır, "Axtar" düyməsi URL query string-ə yönəldir.
+- **Validation**: `zod` + `react-hook-form` qeydiyyat formasında.
+- **UI**: shadcn Calendar `range` mode, Popover `pointer-events-auto`, Command (autocomplete üçün).
+- **Risk**: Kütləvi qovluq adlandırılması — bütün importlar avtomatik yenilənəcək, build sonu yoxlanacaq.
 
-9. **Footer**
-   - 4 sütun: Haqqımızda · Kəşf et · Kəndlilər üçün · Əlaqə
-   - Sosial şəbəkə ikonları, dil seçici təkrar, copyright
+---
 
-## Çoxdilli sistem (AZ / RU / EN)
+## Toxunulmayacaq
 
-- **`react-i18next`** + `i18next-browser-languagedetector`
-- 3 JSON tərcümə faylı: `src/i18n/locales/{az,ru,en}.json`
-- Default dil: **AZ**, seçim `localStorage`-da saxlanır
-- Naviqasiyada dil dropdown (bayraqlarla)
-
-## Texniki yığım
-
-- **Three.js**: `three@0.160`, `@react-three/fiber@^8.18`, `@react-three/drei@^9.122` (versiyaları context-də göstərildiyi kimi sabit)
-- **i18n**: `react-i18next`, `i18next`, `i18next-browser-languagedetector`
-- **Animasiya**: `tailwindcss-animate` + custom keyframes (fade-in, float, parallax) — `index.css` və `tailwind.config.ts`-də
-- **Ikonlar**: `lucide-react` (artıq quraşdırılıb)
-- **Şriftlər**: Google Fonts `<link>` `index.html`-də (Fraunces + Inter)
-
-## Fayl strukturu
-
-```
-src/
-  pages/
-    Index.tsx                  (tam yenidən yazılır)
-    Host.tsx                   (placeholder "tezliklə")
-    Listings.tsx               (placeholder)
-    Auth.tsx                   (placeholder)
-    Dashboard.tsx              (placeholder)
-  components/
-    layout/
-      Navbar.tsx
-      Footer.tsx
-      LanguageSwitcher.tsx
-    home/
-      Hero.tsx
-      HeroScene3D.tsx          (Three.js səhnə)
-      SearchPanel.tsx
-      PopularVillages.tsx
-      HowItWorks.tsx
-      RecommendedHomes.tsx
-      Activities.tsx
-      HostCTA.tsx
-      Testimonials.tsx
-    ui/...                     (mövcud shadcn komponentləri)
-  i18n/
-    config.ts
-    locales/
-      az.json
-      ru.json
-      en.json
-  assets/
-    villages/                  (imagegen ilə yaradılan kənd fotoları)
-    homes/                     (ev fotoları)
-App.tsx                        (yeni route-lar əlavə olunur)
-index.css                      (premium kənd design tokens)
-tailwind.config.ts             (yeni rənglər + keyframe-lər)
-index.html                     (Google Fonts, meta SEO)
-```
-
-## SEO
-
-- `<title>`: "Kəndlər — Azərbaycan kənd turizmi" (<60 simvol)
-- Meta description (3 dildə dəyişən, default AZ)
-- Tək `<h1>` Hero-da
-- Semantic HTML: `<header>`, `<main>`, `<section>`, `<footer>`
-- Bütün şəkillərdə `alt` (kənd adı + təsvir)
-- Responsive viewport (artıq var)
-
-## Yaradılacaq şəkillər (imagegen, premium tier hero üçün)
-
-- 6 kənd fotosu (Xınalıq, Lahıc, Şəki və s. atmosferində)
-- 6 ev/interyer fotosu (premium kənd evləri)
-- 1 hero fon teksturası (yumşaq dağ siluetləri)
-
-## Bu mərhələdə **DAXİL DEYİL** (gələcək addımlar)
-
-- Lovable Cloud (auth, database, email göndərmə) — yalnız UI hazırdır
-- Elan yerləşdirmə formu məntiqi (yalnız placeholder səhifə)
-- Rezervasiya axını və 3% komissiya hesablaması
-- Tövsiyə alqoritmi (mock data ilə görünüş hazırdır)
-- İstifadəçi şəxsi kabineti məzmunu
-
-Növbəti mərhələdə Lovable Cloud aktiv edib auth + database + elan formu + rezervasiya emailini quracağıq.
+- Mövcud dizayn-sistem (rənglər, gradientlər, font).
+- Hero video.
+- 3 dilli i18n quruluşu (yalnız brend mətnləri yenilənir).
+  - Footer və digər təqdimat bölmələrinin vizualı.
+    fronten faylllarini
+    FRONTEND FAYLLARİNİ FRONTEND ADLİ QOVLUQ YARAT AYRİ ONUN İCİNE YERLESDİR BACKEND FAYİLLARİNİ DA AYRİ QOVLUQ YARAT BACKEND ADLİ ORA YERLESDİR
