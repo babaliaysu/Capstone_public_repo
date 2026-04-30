@@ -14,7 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiller: {
+        Row: {
+          ad_soyad: string
+          email: string
+          id: string
+          istifadeci_id: string
+          yaradilma_tarixi: string
+          yenilenme_tarixi: string
+        }
+        Insert: {
+          ad_soyad?: string
+          email?: string
+          id?: string
+          istifadeci_id: string
+          yaradilma_tarixi?: string
+          yenilenme_tarixi?: string
+        }
+        Update: {
+          ad_soyad?: string
+          email?: string
+          id?: string
+          istifadeci_id?: string
+          yaradilma_tarixi?: string
+          yenilenme_tarixi?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
