@@ -32,9 +32,10 @@ export const PopulyarKendler = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {kendler.map((v, i) => (
-            <article
+            <Link
+              to={`/regionlar/${v.slug}`}
               key={v.ad}
-              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer block"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="aspect-[4/5] overflow-hidden">
@@ -68,7 +69,7 @@ export const PopulyarKendler = () => {
               </div>
 
               <div className="absolute top-0 right-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-gold border-r-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </article>
+            </Link>
           ))}
         </div>
       </div>
