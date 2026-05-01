@@ -1,6 +1,7 @@
-// Populyar kəndlər bölməsi (nömrələmə silindi).
+// Populyar kəndlər — kart kliki regionlar siyahısına aparır.
 import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import khinalig from "@/frontend/medialar/kendler/khinalig.jpg";
 import lahij from "@/frontend/medialar/kendler/lahij.jpg";
 import sheki from "@/frontend/medialar/kendler/sheki.jpg";
@@ -9,12 +10,12 @@ import quba from "@/frontend/medialar/kendler/quba.jpg";
 import ismayilli from "@/frontend/medialar/kendler/ismayilli.jpg";
 
 const kendler = [
-  { ad: "Xınalıq",   rayon: "Quba",       sekil: khinalig,  evler: 24, tesvir: "Dünyanın ən hündür yaşayış məntəqələrindən biri." },
-  { ad: "Lahıc",     rayon: "İsmayıllı",  sekil: lahij,     evler: 38, tesvir: "Misgərlik və əl işləri kəndi, daş döşəmə küçələr." },
-  { ad: "Şəki",      rayon: "Şəki",       sekil: sheki,     evler: 56, tesvir: "Tarixi Xan sarayı və qırmızı kirəmid damlar." },
-  { ad: "Qəbələ",    rayon: "Qəbələ",     sekil: gabala,    evler: 47, tesvir: "Dağ meşələri, çay vadiləri və ekoturizm." },
-  { ad: "Quba",      rayon: "Quba",       sekil: quba,      evler: 33, tesvir: "Alma bağları və qarlı zirvələr." },
-  { ad: "İsmayıllı", rayon: "İsmayıllı",  sekil: ismayilli, evler: 29, tesvir: "Üzüm bağları və yumşaq təpələr." },
+  { ad: "Xınalıq",   rayon: "Quba",       slug: "quba-xacmaz",      sekil: khinalig,  evler: 24, tesvir: "Dünyanın ən hündür yaşayış məntəqələrindən biri." },
+  { ad: "Lahıc",     rayon: "İsmayıllı",  slug: "samaxi-ismayilli", sekil: lahij,     evler: 38, tesvir: "Misgərlik və əl işləri kəndi, daş döşəmə küçələr." },
+  { ad: "Şəki",      rayon: "Şəki",       slug: "seki-zaqatala",    sekil: sheki,     evler: 56, tesvir: "Tarixi Xan sarayı və qırmızı kirəmid damlar." },
+  { ad: "Qəbələ",    rayon: "Qəbələ",     slug: "seki-zaqatala",    sekil: gabala,    evler: 47, tesvir: "Dağ meşələri, çay vadiləri və ekoturizm." },
+  { ad: "Quba",      rayon: "Quba",       slug: "quba-xacmaz",      sekil: quba,      evler: 33, tesvir: "Alma bağları və qarlı zirvələr." },
+  { ad: "İsmayıllı", rayon: "İsmayıllı",  slug: "samaxi-ismayilli", sekil: ismayilli, evler: 29, tesvir: "Üzüm bağları və yumşaq təpələr." },
 ];
 
 export const PopulyarKendler = () => {
@@ -31,9 +32,10 @@ export const PopulyarKendler = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {kendler.map((v, i) => (
-            <article
+            <Link
+              to={`/regionlar/${v.slug}`}
               key={v.ad}
-              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer"
+              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer block"
               style={{ animationDelay: `${i * 80}ms` }}
             >
               <div className="aspect-[4/5] overflow-hidden">
@@ -67,7 +69,7 @@ export const PopulyarKendler = () => {
               </div>
 
               <div className="absolute top-0 right-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-gold border-r-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </article>
+            </Link>
           ))}
         </div>
       </div>

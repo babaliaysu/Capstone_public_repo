@@ -1,5 +1,5 @@
-// Yuxarı panel (Navbar). Brend: "Kəndim".
-// Daxil olmamış istifadəçi üçün "Daxil ol" düyməsi, daxil olmuş üçün dairəvi profil avatarı.
+// Yuxarı panel — yeni naviqasiya: Regionlar · Hekayələr · Sevimlilər · FAQ · Elan yerləşdir.
+// Şəffaf görünüş 3D Hero üzərində daha dolğun olsun deyə həmişə şüşə effektli qalır.
 
 import { useEffect, useState } from "react";
 import { Link, NavLink as RNavLink, useNavigate } from "react-router-dom";
@@ -22,11 +22,12 @@ export const YuxariPanel = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Naviqasiya bölmələri
+  // Yeni naviqasiya bölmələri
   const navItems = [
-    { to: "/elanlar", label: t("nav.villages") },
-    { to: "/elanlar", label: t("nav.activities") },
-    { to: "/evini-yerlesdir", label: t("nav.forHosts") },
+    { to: "/regionlar", label: t("nav.regions") },
+    { to: "/hekayeler", label: t("nav.stories") },
+    { to: "/sevimliler", label: t("nav.favorites") },
+    { to: "/faq", label: "FAQ" },
   ];
 
   // İstifadəçinin baş hərflərini hesablayır (avatar üçün).
@@ -41,7 +42,7 @@ export const YuxariPanel = () => {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass shadow-soft py-3" : "bg-transparent py-5"
+        scrolled ? "glass shadow-soft py-3" : "bg-background/10 backdrop-blur-md py-5"
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
@@ -77,7 +78,6 @@ export const YuxariPanel = () => {
         <div className="flex items-center gap-2">
           <DilSecici />
 
-          {/* Daxil olmuş istifadəçi → dairəvi avatar (profilə aparır) */}
           {istifadeci ? (
             <button
               onClick={() => navigate("/profil")}

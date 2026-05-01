@@ -4,12 +4,15 @@
     "find": "Ev tap",
     "activities": "Fəaliyyətlər",
     "forHosts": "Ev sahibləri",
-    "host": "Evini yerləşdir",
+    "host": "Elan yerləşdir",
     "login": "Daxil ol",
-    "signup": "Qeydiyyat"
+    "signup": "Qeydiyyat",
+    "regions": "Regionlar",
+    "stories": "Hekayələr",
+    "favorites": "Sevimlilər"
   },
   "hero": {
-    "tagline": "Azərbaycan kəndləri",
+    "tagline": "Kənd nəfəsi",
     "title": "Kəndin nəfəsini yaşa",
     "titleAccent": "həqiqi qonaqpərvərlik",
     "subtitle": "Xınalıqdan Lahıca, dağ aullarından üzüm bağlarına — yerli ailələrin evində unudulmaz təcrübələr.",

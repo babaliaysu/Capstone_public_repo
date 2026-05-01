@@ -4,12 +4,15 @@
     "find": "Find a home",
     "activities": "Activities",
     "forHosts": "For hosts",
-    "host": "Host your home",
+    "host": "List your home",
     "login": "Sign in",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "regions": "Regions",
+    "stories": "Stories",
+    "favorites": "Favorites"
   },
   "hero": {
-    "tagline": "Azerbaijani villages",
+    "tagline": "Village breath",
     "title": "Live the village",
     "titleAccent": "true hospitality",
     "subtitle": "From Khinalig to Lahij, mountain hamlets to vineyard hills — unforgettable stays with local families.",
