@@ -29,7 +29,7 @@ export const TovsiyeEvler = () => {
             </h2>
             <p className="mt-2 text-muted-foreground">{t("homes.subtitle")}</p>
           </div>
-          <Link to="/elanlar">
+          <Link to="/regionlar">
             <Button variant="ghost" className="rounded-full group">
               {t("homes.viewAll")}
               <ArrowUpRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />

@@ -1,6 +1,7 @@
-// Populyar kəndlər bölməsi (nömrələmə silindi).
+// Populyar kəndlər — kart kliki regionlar siyahısına aparır.
 import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import khinalig from "@/frontend/medialar/kendler/khinalig.jpg";
 import lahij from "@/frontend/medialar/kendler/lahij.jpg";
 import sheki from "@/frontend/medialar/kendler/sheki.jpg";
@@ -9,12 +10,12 @@ import quba from "@/frontend/medialar/kendler/quba.jpg";
 import ismayilli from "@/frontend/medialar/kendler/ismayilli.jpg";
 
 const kendler = [
-  { ad: "Xınalıq",   rayon: "Quba",       sekil: khinalig,  evler: 24, tesvir: "Dünyanın ən hündür yaşayış məntəqələrindən biri." },
-  { ad: "Lahıc",     rayon: "İsmayıllı",  sekil: lahij,     evler: 38, tesvir: "Misgərlik və əl işləri kəndi, daş döşəmə küçələr." },
-  { ad: "Şəki",      rayon: "Şəki",       sekil: sheki,     evler: 56, tesvir: "Tarixi Xan sarayı və qırmızı kirəmid damlar." },
-  { ad: "Qəbələ",    rayon: "Qəbələ",     sekil: gabala,    evler: 47, tesvir: "Dağ meşələri, çay vadiləri və ekoturizm." },
-  { ad: "Quba",      rayon: "Quba",       sekil: quba,      evler: 33, tesvir: "Alma bağları və qarlı zirvələr." },
-  { ad: "İsmayıllı", rayon: "İsmayıllı",  sekil: ismayilli, evler: 29, tesvir: "Üzüm bağları və yumşaq təpələr." },
+  { ad: "Xınalıq",   rayon: "Quba",       slug: "quba-xacmaz",      sekil: khinalig,  evler: 24, tesvir: "Dünyanın ən hündür yaşayış məntəqələrindən biri." },
+  { ad: "Lahıc",     rayon: "İsmayıllı",  slug: "samaxi-ismayilli", sekil: lahij,     evler: 38, tesvir: "Misgərlik və əl işləri kəndi, daş döşəmə küçələr." },
+  { ad: "Şəki",      rayon: "Şəki",       slug: "seki-zaqatala",    sekil: sheki,     evler: 56, tesvir: "Tarixi Xan sarayı və qırmızı kirəmid damlar." },
+  { ad: "Qəbələ",    rayon: "Qəbələ",     slug: "seki-zaqatala",    sekil: gabala,    evler: 47, tesvir: "Dağ meşələri, çay vadiləri və ekoturizm." },
+  { ad: "Quba",      rayon: "Quba",       slug: "quba-xacmaz",      sekil: quba,      evler: 33, tesvir: "Alma bağları və qarlı zirvələr." },
+  { ad: "İsmayıllı", rayon: "İsmayıllı",  slug: "samaxi-ismayilli", sekil: ismayilli, evler: 29, tesvir: "Üzüm bağları və yumşaq təpələr." },
 ];
 
 export const PopulyarKendler = () => {
