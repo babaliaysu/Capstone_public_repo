@@ -1,23 +1,20 @@
-// Tövsiyə olunan evlər (nömrələmə silindi).
+// Tövsiyə olunan evlər — mock elanlar bazasından oxuyur, kart kliki /elan/:id açır.
 import { useTranslation } from "react-i18next";
 import { Star, Bed, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import home1 from "@/frontend/medialar/evler/home1.jpg";
-import home2 from "@/frontend/medialar/evler/home2.jpg";
-import home3 from "@/frontend/medialar/evler/home3.jpg";
-import home4 from "@/frontend/medialar/evler/home4.jpg";
-import home5 from "@/frontend/medialar/evler/home5.jpg";
-import home6 from "@/frontend/medialar/evler/home6.jpg";
+import { ELANLAR } from "@/backend/melumat/elanlar";
 
-const evler = [
-  { id: 1, sekil: home1, baslq: "Dağ mənzərəli daxma",     kend: "Xınalıq, Quba",     qiymet: 85,  reyting: 4.97, rey: 142, otaq: 3 },
-  { id: 2, sekil: home2, baslq: "Daş ev, gül balkon",      kend: "Lahıc, İsmayıllı",  qiymet: 65,  reyting: 4.92, rey: 98,  otaq: 2 },
-  { id: 3, sekil: home3, baslq: "Rahat yataq, dağ baxışı", kend: "Şəki",              qiymet: 55,  reyting: 4.88, rey: 76,  otaq: 1 },
-  { id: 4, sekil: home4, baslq: "Bağda samovar süfrəsi",   kend: "Qəbələ",            qiymet: 95,  reyting: 4.99, rey: 211, otaq: 4 },
-  { id: 5, sekil: home5, baslq: "Nar bağçalı həyət evi",   kend: "Şəki",              qiymet: 70,  reyting: 4.85, rey: 67,  otaq: 3 },
-  { id: 6, sekil: home6, baslq: "Meşə içi log-cabin",      kend: "Qəbələ",            qiymet: 120, reyting: 5.0,  rey: 54,  otaq: 5 },
-];
+const evler = ELANLAR.slice(0, 6).map((e) => ({
+  id: e.id,
+  sekil: e.sekiller[0],
+  baslq: e.baslq,
+  kend: e.rayon,
+  qiymet: e.qiymet,
+  reyting: e.reyting,
+  rey: e.reyler,
+  otaq: e.yatag,
+}));
 
 export const TovsiyeEvler = () => {
   const { t } = useTranslation();
