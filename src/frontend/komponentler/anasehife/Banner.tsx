@@ -38,20 +38,40 @@ export const Banner = () => {
             </span>
           </div>
 
-          <h1
-            className="font-serif text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] text-background drop-shadow-2xl animate-fade-in"
-            style={{ animationDelay: "0.15s", opacity: 0 }}
-          >
-            {t("hero.title")}{" "}
-            <span className="italic font-light text-gold">{t("hero.titleAccent")}</span>
+          {/* Sağdan-sola sürüşərək gələn başlıq və alt başlıq.
+              Hər sətir kiçik gecikmə ilə kənardan içəri sürüşür. */}
+          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl font-medium leading-[1.05] text-background drop-shadow-2xl overflow-hidden">
+            <span
+              className="block animate-saga-sola"
+              style={{ animationDelay: "0.15s", opacity: 0 }}
+            >
+              {t("hero.title")}
+            </span>
+            <span
+              className="block italic font-light text-gold animate-saga-sola"
+              style={{ animationDelay: "0.4s", opacity: 0 }}
+            >
+              {t("hero.titleAccent")}
+            </span>
           </h1>
 
           <p
-            className="text-lg md:text-xl text-background/90 max-w-2xl leading-relaxed animate-fade-in drop-shadow-lg"
-            style={{ animationDelay: "0.3s", opacity: 0 }}
+            className="text-lg md:text-xl text-background/90 max-w-2xl leading-relaxed drop-shadow-lg animate-saga-sola"
+            style={{ animationDelay: "0.7s", opacity: 0 }}
           >
             {t("hero.subtitle")}
           </p>
+
+          {/* Lokal animasiya: kənardan sağdan içəri sürüşmə */}
+          <style>{`
+            @keyframes saga-sola {
+              0%   { opacity: 0; transform: translateX(120px); }
+              100% { opacity: 1; transform: translateX(0);     }
+            }
+            .animate-saga-sola {
+              animation: saga-sola 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+            }
+          `}</style>
 
           <div className="pt-4">
             <AxtarisPaneli />
