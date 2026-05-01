@@ -1,176 +1,85 @@
-# Kəndim — Funksional yenilənmə planı
 
-Sayt adı **Yurd → Kəndim** olaraq dəyişəcək, axtarış paneli tam funksional olacaq, qeydiyyat/daxil olma və profil işləyəcək, qovluqlar Azərbaycan dilinə çevriləcək, kod şərhləri AZ dilində yazılacaq.
+# Kəndim — Yeni quruluş və 3D ana səhifə
 
----
+İş 7 məntiqi səhifə/bölmə üzərində qurulacaq. Mövcud "AnaSehife" silinmir — **2-ci səhifə** olur. Yeni 3D animasiyalı "1-ci səhifə" yaradılır və o, kök yol (`/`) olur.
 
-## 1. Brendinq dəyişikliyi
+## 1) Yeni naviqasiya (`YuxariPanel`)
 
-- Hər yerdə **Yurd → Kəndim** (Navbar, Auth, index.html title/meta, footer, i18n faylları AZ/EN/RU).
+- Sol: **Kəndim** loqosu (kliklə `/`).
+- Sağ menyu (yalnız bu bölmələr):
+  `Regionlar` · `Hekayələr` · `Sevimlilər` · `FAQ` · `Elan yerləşdir`
+- Sağ kənarda: **Dil seçici** (mövcud) + **Daxil ol** (giriş yoxdursa) və ya **avatar** (varsa).
+- Köhnə "Kəndlər / Fəaliyyətlər / Ev sahibləri / Evini yerləşdir" silinir (yalnız "Elan yerləşdir" Sevimlilər yanında qalır).
+- Mobil: sheet menyu eyni elementlərlə.
 
-## 2. Axtarış paneli — tam funksional (`AxtarisPaneli`)
+## 2) Səhifə #1 — `/` (yeni 3D Hero)
 
-Yeni davranış: **Hara · Vaxt · Xidmət növü · Axtar** (Qonaqlar silinir).
+`react-three-fiber@^8.18` + `@react-three/drei@^9.122.0` + `three@^0.160` istifadə ediləcək.
 
-### a) Hara (autocomplete)
+Səhnə tərkibi (`Birinci3DSehife.tsx`):
+- **Arxa plan**: yüklənmiş dağ-kənd şəkli (`xinaliq-mountains.jpg`) bir uzaq plane kimi yerləşir.
+- **Buludlar**: drei `Cloud` × 5–6 ədəd, asta paralaks hərəkəti (sağa-sola sürüşür).
+- **Kamera dolly**: `useFrame` ilə 0.05 sürətlə z oxunda yavaş-yavaş daxilə hərəkət edir (ping-pong) — "dağa yaxınlaşma" hissi.
+- **Mərkəz mətni**: `Text3D` (drei) — "K", "ə", "n", "d", "i", "m" hərfləri bir-bir mərkəzə uçur (scale + opacity fade-in, hər hərf 150ms gecikmə ilə). Hover/move ilə yüngül 3D rotation (mouse parallax).
+- **Alt karusel**: HTML overlay (3D-dən kənar, daha sadə və performant) — 4–5 elan kartı `marquee`/CSS keyframe ilə sağdan sola sonsuz dövr edir, kartlarda `transform: perspective(800px) rotateY(-12deg)` 3D effekt verir.
+- **Aşağı ox**: scroll-hint, klik etdikdə smooth-scroll ilə 2-ci section-a düşür.
 
-- Komponent: `BolgeSecici.tsx`
-- Yerli siyahı (kod içində massiv): Quba, Qusar, Xınalıq, Lahıc, Şəki, Qax, Qəbələ, İsmayıllı, Qobustan, Şamaxı, Qusar, Lerik, Lənkəran, Astara, Masallı, Tovuz, Gədəbəy, Daşkəsən, Naftalan, Naxçıvan, Ordubad, Şahbuz, Zaqatala, Balakən, Göygöl, Şuşa, Laçın, Kəlbəcər və s. (~30 ad).
-- İki rejim:
-  - **Boş input + fokus** → bütün bölgələr **kateqoriya** şəklində açılır (Şimal · Qərb · Cənub · Mərkəz · Naxçıvan · Qarabağ qruplarında).
-  - **Yazmağa başlayanda** → uyğun olanlar süzgəcdən keçib dropdown-da göstərilir.
-- Seçim olduqda input dolur, axtarış state-ə yazılır.
+Eyni route (`/`) altında **iki section** dik düzülür:
+1. `<Birinci3DSehife>` (100vh)
+2. `<AnaSehife>` məzmunu (mövcud Banner + qalanları) — yəni indiki "AnaSehife" ikinci ekran kimi gəlir.
 
-### b) Vaxt (tarix aralığı)
+`Banner.tsx` daxilində mövcud uzun mətnlər (`hero.title`, `hero.subtitle`) **sağdan sola sürüşərək gələn** animasiyalı blok kimi yenidən qurulur (custom CSS keyframe `slide-in-right` artıq tailwind config-də var).
 
-- Komponent: `TarixSecici.tsx` (shadcn `Calendar` + `Popover`)
-- Düymədə təqvim ikonu. Klik → təqvim açılır.
-- `mode="range"`. Mərhələlər:
-  - İlkin label: **"Başlama tarixi"**
-  - İstifadəçi başlanğıc seçir → həmin gün rənglənir, label **"Bitmə tarixi"** olur.
-  - Bitmə seçildikdə aralıq vurğulanır, panel bağlanır, axtarış state-i yenilənir.
-- `pointer-events-auto` Calendar-da.
+## 3) Geri qayıdışın bərpası
 
-### c) Xidmət növü (Qonaqlar əvəzinə)
+- `Giris.tsx`, `Qeydiyyat.tsx`, `Profil.tsx` üst sol küncündə **`← Ana səhifəyə qayıt`** linki (`<Link to="/">`).
+- Eyni zamanda kart başlığında "Kəndim" loqosu da `/` ilə link olur.
 
-- Komponent: `XidmetSecici.tsx`
-- Klik → popover açılır:
-  - Yuxarıda **axtarış inputu** (sürətli süzgəc).
-  - Aşağıda kateqoriya çipləri/grid: **Atçılıq · Bələdçi · Dulusçuluq · Yürüyüş · Yerli mətbəx · Balıq tutmaq · Bağ işləri · Çay mərasimi · Aşıq musiqisi · Əl işləri · Arıçılıq · Çoban təcrübəsi**.
-  - Çoxlu seçim mümkündür (chip toggle).
-- Mənbə: indi sabit massiv (`src/melumat/xidmetler.ts`), sonra elanlar bazasından dinamik gələcək (TODO şərh kimi qeyd olunur).
+## 4) Səhifə #3 — `/regionlar` (Azərbaycan xəritəsi)
 
-### d) Axtar düyməsi
+- Yeni səhifə. Üstdə YuxariPanel (loqo + dil seçici).
+- Solda **interaktiv SVG xəritə** — Azərbaycan rayonlarının sadələşdirilmiş SVG path-ları (statik fayl `src/frontend/medialar/xerite/azerbaijan-regions.svg`-i `bolgeler.ts`-dəki rayon adlarına uyğun manual SVG-də 8–10 əsas region kimi qruplaşdırırıq: Quba-Xaçmaz, Şəki-Zaqatala, Qəbələ-İsmayıllı, Lənkəran, Naxçıvan, Qarabağ, Abşeron, Dağlıq Şirvan).
+- Hover → o region path-ının `fill`-i tündləşir + tooltip ilə ad göstərir.
+- Klik → `/regionlar/:slug` səhifəsinə yönəldir.
+- Sağda regionların adları (yüklənmiş İtaliya screenshot tərzində qrid).
 
-- State-i URL parametrlərinə yazıb `/elanlar?bolge=...&baslama=...&bitme=...&xidmet=...` səhifəsinə yönəldir (səhifə hələ Coming Soon olaraq qalır, sonra qurulacaq).
+`/regionlar/:slug` səhifəsi:
+- Filter bar üstdə (5 dropdown): **Xidmətlər · Yerləşmə növü · Fəaliyyətlər · Gecəlik qiymət · Reytinq**.
+- Breadcrumbs: `Ana səhifə › Regionlar › {Region adı}`.
+- Aşağıda **listing kartlar grid** — hər kart: şəkil, başlıq, qiymət, reyting, məkan, **"Təklifə bax"** düyməsi.
+- Statik mock data (`backend/melumat/elanlar.ts`-də 6–8 mock listing).
 
-## 3. Auth — qeydiyyat/daxil olma + profil
+## 5) Səhifə #4 — `/elan/:id` (Elan detalı)
 
-### Daxil ol səhifəsi (`/giris`)
+- Üstdə `← Axtarışa davam et` (`navigate(-1)`).
+- Şəkillər qriddi (4–5 şəkil), sağda **sticky qiymət/sifariş kartı** (gecəlik qiymət, tarix seçimi, "Sifariş et" düyməsi — UI-only).
+- Aşağıda: təsvir, otaqlar, xidmətlər (Wi-Fi/Mətbəx ikonlarla), ev sahibi əlaqəsi.
+- **Google Maps**: `<iframe>` istifadə (API key tələb etmir) — `https://www.google.com/maps?q=<lat>,<lng>&output=embed`. Mock dataya `koordinat: [lat, lng]` əlavə olunur.
 
-- Sahələr: **Email**, **Parol**, **Daxil ol** düyməsi.
-- Aşağıda kiçik mətn: *"Hesabın yoxdur? **Qeydiyyat**"* — link `/qeydiyyat`-a aparır.
-- Palitra: ağ kart + forest yaşıl aksent.
+## 6) Səhifə #5 — `/evini-yerlesdir` (host form)
 
-### Qeydiyyat səhifəsi (`/qeydiyyat`)
+Mövcud "TezlikleGelir" əvəzlənir. Sadə multi-step UI form (UI-only, submit yox):
+- Addım 1: Evin adı, region (BolgeSecici), tip
+- Addım 2: Şəkil yükləmə placeholder, xidmətlər (XidmetSecici)
+- Addım 3: Qiymət, təsvir
+- Submit → toast "Tezliklə yoxlanılacaq".
 
-- **Fərqli palitra**: gold/bej dominant arxa fon (qeyd olunan fərqlilik üçün), kart isə krem rəngli.
-- Sahələr: **Ad Soyad**, **Email**, **Parol**, **Parol təsdiqi**, **Qeydiyyatdan keç** düyməsi.
-- Zod validasiya: parollar uyğun olmalı, parol ≥6, email format, ad ≥2 simvol.
-- Aşağıda link: *"Hesabın var? **Daxil ol**"*.
+## 7) Köhnə marshrutlar
 
-### Davranış
-
-- Uğurlu daxil olma/qeydiyyatdan sonra **avtomatik ana səhifəyə (`/`)** yönəlmə.
-- `onAuthStateChange` listener `App.tsx`-ə qoyulur (qlobal session state).
-
-### Navbar profil ikonu
-
-- Daxil olmamış: **"Daxil ol"** düyməsi → `/giris`.
-- Daxil olmuş: **dairəvi avatar** (ad-soyadın baş hərfləri, gold ring) → klik `/profil`-ə aparır.
-
-### Profil səhifəsi (`/profil`)
-
-- Göstərir: Ad Soyad, Email (read-only display + edit mode).
-- **Məlumatları redaktə et** düyməsi → ad/email inputları aktivləşir, Saxla düyməsi.
-- **Parolu dəyiş** düyməsi → **eyni səhifədə** aşağıda yeni konteyner açılır:
-  - Yeni parol, Parol təsdiqi, Submit.
-  - Submit → `supabase.auth.updateUser({ password })`.
-- **Çıxış** düyməsi.
-
-### Backend (Supabase migration)
-
-- `profiller` cədvəli yaradılır:
-  - `istifadeci_id` (uuid, auth.users referans, unique)
-  - `ad_soyad` (text)
-  - `email` (text)
-- RLS:
-  - Hər kəs yalnız öz profilini görə/redaktə edə bilər.
-- Trigger: `handle_new_user` → qeydiyyatdan sonra avtomatik profil yaradır (raw_user_meta_data-dan ad_soyad götürür).
-
-## 4. Hero və ümumi UI təmizlikləri
-
-- Hero altındakı **"01 Hər birinin öz hekayəsi var · 02 · 03"** elementi və kənd siyahısı bölməsindəki nömrələmə **silinir**.
-- Hero "120+ kənd · 26 region" və "4.9 · 2,400+ qonaq" pill-ləri qalır.
-
-## 5. Qovluq və fayl adları → Azərbaycan dilində
-
-Yenidən adlandırma xəritəsi (yalnız layihəyə aid kod, shadcn `src/components/ui` toxunulmur):
-
-```text
-src/pages/             →  src/sehifeler/
-  Index.tsx            →    AnaSehife.tsx
-  Auth.tsx             →    Giris.tsx (+ yeni Qeydiyyat.tsx, Profil.tsx)
-  ComingSoon.tsx       →    TezlikleGelir.tsx
-  NotFound.tsx         →    TapilmadiSehife.tsx
-
-src/components/home/   →  src/komponentler/anasehife/
-  Hero.tsx             →    Banner.tsx
-  SearchPanel.tsx      →    AxtarisPaneli.tsx (+ BolgeSecici, TarixSecici, XidmetSecici)
-  PopularVillages.tsx  →    PopulyarKendler.tsx
-  RecommendedHomes.tsx →    TovsiyeEvler.tsx
-  Activities.tsx       →    Fealiyyetler.tsx
-  HowItWorks.tsx       →    NeceIsleyir.tsx
-  HostCTA.tsx          →    KendliCagirisi.tsx
-  Testimonials.tsx     →    Reyler.tsx
-  HeroScene3D.tsx      →    silinir (artıq istifadə olunmur)
-
-src/components/layout/ →  src/komponentler/maket/
-  Navbar.tsx           →    YuxariPanel.tsx
-  Footer.tsx           →    AltPanel.tsx
-  LanguageSwitcher.tsx →    DilSecici.tsx
-
-src/i18n/              →  src/dil/
-src/hooks/             →  src/qarmaqlar/
-src/lib/               →  src/kitabxana/
-src/assets/            →  src/medialar/
-  hero/                →    banner/
-  homes/               →    evler/
-  villages/            →    kendler/
-
-Yeni:
-src/melumat/           → sabit data (bolgeler.ts, xidmetler.ts)
-src/komponentler/forma/ → BolgeSecici.tsx, TarixSecici.tsx, XidmetSecici.tsx
-```
-
-**Toxunulmaz** (avtogenerasiya / standart):
-
-- `src/components/ui/*` (shadcn)
-- `src/integrations/supabase/*`
-- `src/main.tsx`, `src/App.tsx`, `src/index.css`, `vite.config.ts`, `tailwind.config.ts`
-- `.env`, `supabase/config.toml`
-
-`App.tsx` import yolları və route-lar yenilənir:
-
-- `/` → `AnaSehife`
-- `/giris` → `Giris`
-- `/qeydiyyat` → `Qeydiyyat`
-- `/profil` → `Profil` (qorunmuş route)
-- `/elanlar` → `TezlikleGelir`
-- `/evini-yerlesdir` → `TezlikleGelir`
-
-## 6. Kod şərhləri
-
-- Bütün yeni və redaktə olunan fayllarda funksiya/komponent təsvirləri Azərbaycan dilində şərhlərlə (`// ...` və JSDoc) yazılır ki, sonradan asanlıqla dəyişdirilə bilsin.
-
----
+`App.tsx`-də əlavələr:
+- `/` → `Birinci3DSehife` + `AnaSehife` (eyni səhifədə iki section)
+- `/regionlar`, `/regionlar/:slug`, `/elan/:id`, `/hekayeler`, `/sevimliler`, `/faq`, `/evini-yerlesdir` (real form).
+- `Hekayələr`, `Sevimlilər`, `FAQ` — qısa placeholder səhifələr (sadə hero + content), eyni naviqasiya ilə.
 
 ## Texniki qeydlər
 
-- **Migration**: `profiller` cədvəli + RLS + `handle_new_user` trigger.
-- **Auth ayarları**: `auto_confirm_email = true` ediləcək (plan tələbi: qeydiyyatdan dərhal sonra ana səhifəyə qayıtsın — email təsdiqi tələb olunmasın).
-- **State**: Axtarış parametrləri `useState`-də saxlanılır, "Axtar" düyməsi URL query string-ə yönəldir.
-- **Validation**: `zod` + `react-hook-form` qeydiyyat formasında.
-- **UI**: shadcn Calendar `range` mode, Popover `pointer-events-auto`, Command (autocomplete üçün).
-- **Risk**: Kütləvi qovluq adlandırılması — bütün importlar avtomatik yenilənəcək, build sonu yoxlanacaq.
+- Asılılıqlar: `bun add three@^0.160 @react-three/fiber@^8.18 @react-three/drei@^9.122.0`.
+- 3D yüklənənə qədər `Suspense` fallback olaraq sadə şəkil göstərilir.
+- Bütün yeni fayllar Azərbaycan dilində adlandırılır və şərhlər AZ-də yazılır.
+- Köhnə komponentlərə yalnız naviqasiya keçidləri əlavə edilir, dizayn sxemi (rənglər/index.css) toxunulmur.
 
----
+## Risklər
 
-## Toxunulmayacaq
-
-- Mövcud dizayn-sistem (rənglər, gradientlər, font).
-- Hero video.
-- 3 dilli i18n quruluşu (yalnız brend mətnləri yenilənir).
-  - Footer və digər təqdimat bölmələrinin vizualı.
-    fronten faylllarini
-    FRONTEND FAYLLARİNİ FRONTEND ADLİ QOVLUQ YARAT AYRİ ONUN İCİNE YERLESDİR BACKEND FAYİLLARİNİ DA AYRİ QOVLUQ YARAT BACKEND ADLİ ORA YERLESDİR
+- 3D performans: hərflər `Text3D` ilə font tələb edir — drei-nin built-in `helvetiker` json-u yerinə CDN url verəcəyik (`https://threejs.org/examples/fonts/helvetiker_regular.typeface.json`). Əgər latın hərfləri çatmırsa "Kəndim" üçün "ə"-ni HTML overlay variantı ilə əvəzləyirik (Text3D Latin yalnız).
+- Azərbaycan SVG xəritəsi: dəqiq coğrafi sərhədlər əvəzinə **stilizə edilmiş** path-lar (8–10 region) — interaktivlik üçün kifayət, sadə və sürətli.
+- Google Maps iframe API key olmadan işləyir, kifayət edir.
