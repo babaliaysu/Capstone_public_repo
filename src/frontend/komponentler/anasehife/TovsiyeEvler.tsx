@@ -42,7 +42,7 @@ export const TovsiyeEvler = () => {
             // 3% komissiya alıcıya göstərilən qiymətə əlavə olunur
             const yekunQiymet = Math.round(h.qiymet * 1.03);
             return (
-              <article key={h.id} className="group cursor-pointer">
+              <Link to={`/elan/${h.id}`} key={h.id} className="group cursor-pointer block">
                 <div className="relative aspect-[4/3] rounded-2xl overflow-hidden mb-4 shadow-soft group-hover:shadow-elegant transition-shadow duration-500">
                   <img
                     src={h.sekil}
@@ -73,7 +73,7 @@ export const TovsiyeEvler = () => {
                     <span className="text-sm text-muted-foreground">{t("homes.perNight")}</span>
                   </div>
                 </div>
-              </article>
+              </Link>
             );
           })}
         </div>
