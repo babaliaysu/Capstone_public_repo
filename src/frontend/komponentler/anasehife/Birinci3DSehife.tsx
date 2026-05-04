@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronDown, MapPin, Star } from "lucide-react";
 import { Sehne3D } from "./Sehne3D";
-import { ELANLAR } from "@/backend/melumat/elanlar";
+import { useElanlar } from "@/backend/qarmaqlar/useElanlar";
 
 // "Kəndim" hərflər massivi (boş sətir bölmür, AZ hərfləri ilə)
 const HERFLER = ["K", "ə", "n", "d", "i", "m"];
@@ -30,7 +30,8 @@ export const Birinci3DSehife = () => {
   };
 
   // Karusel üçün ikiqat siyahı (sonsuz dövr effekti üçün)
-  const karuselElanlari = [...ELANLAR.slice(0, 5), ...ELANLAR.slice(0, 5)];
+  const { elanlar } = useElanlar();
+  const karuselElanlari = [...elanlar.slice(0, 5), ...elanlar.slice(0, 5)];
 
   // İkinci sehifeye yumusaq scroll
   const ikinciyeKes = () => {
@@ -117,7 +118,7 @@ export const Birinci3DSehife = () => {
               {karuselElanlari.map((e, i) => (
                 <Link
                   key={`${e.id}-${i}`}
-                  to={`/elan/${e.id}`}
+                  to={`/elan/${e.slug}`}
                   className="block w-72 shrink-0 rounded-2xl overflow-hidden bg-card shadow-elegant ring-1 ring-border hover:ring-gold transition-all duration-500"
                   style={{
                     transform: "rotateY(-12deg) rotateX(2deg)",

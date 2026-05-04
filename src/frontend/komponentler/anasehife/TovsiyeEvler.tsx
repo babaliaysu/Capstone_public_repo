@@ -3,21 +3,21 @@ import { useTranslation } from "react-i18next";
 import { Star, Bed, ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ELANLAR } from "@/backend/melumat/elanlar";
-
-const evler = ELANLAR.slice(0, 6).map((e) => ({
-  id: e.id,
-  sekil: e.sekiller[0],
-  baslq: e.baslq,
-  kend: e.rayon,
-  qiymet: e.qiymet,
-  reyting: e.reyting,
-  rey: e.reyler,
-  otaq: e.yatag,
-}));
+import { useElanlar } from "@/backend/qarmaqlar/useElanlar";
 
 export const TovsiyeEvler = () => {
   const { t } = useTranslation();
+  const { elanlar } = useElanlar();
+  const evler = elanlar.slice(0, 6).map((e) => ({
+    id: e.slug,
+    sekil: e.sekiller[0],
+    baslq: e.baslq,
+    kend: e.rayon,
+    qiymet: e.qiymet,
+    reyting: e.reyting,
+    rey: e.rey_sayi,
+    otaq: e.yatag,
+  }));
 
   return (
     <section className="py-24 bg-background">
