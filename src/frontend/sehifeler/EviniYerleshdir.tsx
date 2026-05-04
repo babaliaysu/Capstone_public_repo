@@ -14,20 +14,46 @@ import { BolgeSecici } from "@/frontend/komponentler/forma/BolgeSecici";
 import { XidmetSecici } from "@/frontend/komponentler/forma/XidmetSecici";
 import { toast } from "sonner";
 import type { Bolge } from "@/backend/melumat/bolgeler";
+import { supabase } from "@/backend/supabase";
+import { useSessiya } from "@/backend/qarmaqlar/useSessiya";
 
 const EviniYerleshdir = () => {
   const navigate = useNavigate();
+  const { istifadeci } = useSessiya();
   const [bolge, setBolge] = useState<Bolge | null>(null);
   const [xidmetler, setXidmetler] = useState<string[]>([]);
   const [ad, setAd] = useState("");
   const [tip, setTip] = useState("butov_ev");
   const [qiymet, setQiymet] = useState("");
   const [tesvir, setTesvir] = useState("");
+  const [telefon, setTelefon] = useState("");
+  const [yuklenir, setYuklenir] = useState(false);
 
-  const gonder = (e: React.FormEvent) => {
+  const gonder = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!istifadeci) {
+      toast.error("Elan göndərmək üçün daxil ol.");
+      navigate("/giris");
+      return;
+    }
     if (!ad || !bolge || !qiymet) {
       toast.error("Ad, bölgə və qiymət mütləqdir.");
+      return;
+    }
+    setYuklenir(true);
+    const { error } = await supabase.from("ev_sahibi_muracietleri").insert({
+      istifadeci_id: istifadeci.id,
+      ev_adi: ad,
+      bolge: bolge.ad,
+      rayon: bolge.rayon,
+      tip,
+      qiymet: Number(qiymet),
+      tesvir,
+      elaqe_telefon: telefon,
+    });
+    setYuklenir(false);
+    if (error) {
+      toast.error(error.message);
       return;
     }
     toast.success("Elanın komandamız tərəfindən yoxlanılır. Email ilə bildiriş alacaqsan.");
