@@ -162,13 +162,22 @@ const EviniYerleshdir = () => {
                   placeholder="Evini, mühitini və qonağa təklif etdiklərini yaz..."
                 />
               </div>
+              <div>
+                <Label>Əlaqə telefonu</Label>
+                <Input
+                  value={telefon}
+                  onChange={(e) => setTelefon(e.target.value)}
+                  placeholder="+994 ..."
+                />
+              </div>
             </section>
 
             <Button
               type="submit"
+              disabled={yuklenir}
               className="w-full bg-gradient-warm text-primary-foreground hover:shadow-gold"
             >
-              Elanı göndər
+              {yuklenir ? "Göndərilir..." : "Elanı göndər"}
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </form>
