@@ -1,15 +1,20 @@
-// Sevimlilər — istifadəçinin saxladığı evlər (hələlik mock).
+// Sevimlilər səhifəsi — istifadəçinin əlavə etdiyi elanlar.
 
 import { Link } from "react-router-dom";
-import { Heart, MapPin, Star } from "lucide-react";
+import { Heart, MapPin, Star, X } from "lucide-react";
 import { YuxariPanel } from "@/frontend/komponentler/maket/YuxariPanel";
 import { AltPanel } from "@/frontend/komponentler/maket/AltPanel";
 import { Button } from "@/components/ui/button";
-import { ELANLAR } from "@/backend/melumat/elanlar";
+import { useElanlar } from "@/backend/qarmaqlar/useElanlar";
+import { useSevimliler } from "@/backend/qarmaqlar/useSevimliler";
+import { useSessiya } from "@/backend/qarmaqlar/useSessiya";
 
 const Sevimliler = () => {
-  // Mock: ilk 3 elan sevimli sayılır
-  const sevimli = ELANLAR.slice(0, 3);
+  const { istifadeci } = useSessiya();
+  const { elanlar } = useElanlar();
+  const { idler, cixar } = useSevimliler();
+
+  const sevimli = elanlar.filter((e) => idler.has(e.id));
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
@@ -26,47 +31,44 @@ const Sevimliler = () => {
             </p>
           </div>
 
-          {sevimli.length === 0 ? (
+          {!istifadeci ? (
             <div className="text-center py-20 bg-secondary/40 rounded-2xl">
               <p className="text-muted-foreground mb-4">
-                Hələ heç bir ev seçməmisən.
+                Sevimliləri görmək üçün daxil ol.
               </p>
-              <Link to="/regionlar">
-                <Button>Regionlara bax</Button>
-              </Link>
+              <Link to="/giris"><Button>Daxil ol</Button></Link>
+            </div>
+          ) : sevimli.length === 0 ? (
+            <div className="text-center py-20 bg-secondary/40 rounded-2xl">
+              <p className="text-muted-foreground mb-4">Hələ heç bir ev seçməmisən.</p>
+              <Link to="/regionlar"><Button>Regionlara bax</Button></Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {sevimli.map((e) => (
-                <Link
-                  key={e.id}
-                  to={`/elan/${e.id}`}
-                  className="group bg-card rounded-2xl overflow-hidden ring-1 ring-border shadow-soft hover:shadow-elegant transition-all duration-500 block"
-                >
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={e.sekiller[0]}
-                      alt={e.baslq}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    />
-                    <Heart className="absolute top-3 right-3 h-6 w-6 text-destructive fill-destructive drop-shadow" />
-                  </div>
-                  <div className="p-4">
-                    <h2 className="font-serif text-lg font-semibold group-hover:text-primary transition-colors">
-                      {e.baslq}
-                    </h2>
-                    <div className="flex items-center justify-between text-xs text-muted-foreground mt-1">
-                      <span className="inline-flex items-center gap-1">
-                        <MapPin className="h-3 w-3" />
-                        {e.rayon}
-                      </span>
-                      <span className="inline-flex items-center gap-1">
-                        <Star className="h-3 w-3 fill-gold text-gold" />
-                        {e.reyting}
-                      </span>
+                <div key={e.id} className="relative group bg-card rounded-2xl overflow-hidden ring-1 ring-border shadow-soft hover:shadow-elegant transition-all duration-500">
+                  <button
+                    onClick={() => cixar(e.id)}
+                    className="absolute top-3 right-3 z-10 h-8 w-8 rounded-full bg-background/90 backdrop-blur flex items-center justify-center hover:bg-destructive hover:text-destructive-foreground transition-colors"
+                    aria-label="Sevimlilərdən sil"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                  <Link to={`/elan/${e.slug}`} className="block">
+                    <div className="relative aspect-[4/3] overflow-hidden">
+                      <img src={e.sekiller[0]} alt={e.baslq} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                     </div>
-                  </div>
-                </Link>
+                    <div className="p-4">
+                      <h2 className="font-serif text-lg font-semibold group-hover:text-primary transition-colors">
+                        {e.baslq}
+                      </h2>
+                      <div className="flex items-center justify-between text-xs text-muted-foreground mt-1">
+                        <span className="inline-flex items-center gap-1"><MapPin className="h-3 w-3" />{e.rayon}</span>
+                        <span className="inline-flex items-center gap-1"><Star className="h-3 w-3 fill-gold text-gold" />{e.reyting}</span>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
               ))}
             </div>
           )}

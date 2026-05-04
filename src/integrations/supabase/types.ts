@@ -14,6 +14,159 @@ export type Database = {
   }
   public: {
     Tables: {
+      elanlar: {
+        Row: {
+          aktivdir: boolean
+          baslq: string
+          enlik: number | null
+          ev_sahibi: string
+          id: string
+          imkanlar: string[]
+          metr: number
+          qiymet: number
+          qonaq: number
+          rayon: string
+          region: string
+          region_slug: string
+          rey_sayi: number
+          reyting: number
+          sahib_id: string | null
+          sekiller: string[]
+          slug: string
+          tesvir: string
+          tip: string
+          uzunluq: number | null
+          xidmetler: string[]
+          yaradilma_tarixi: string
+          yatag: number
+          yenilenme_tarixi: string
+        }
+        Insert: {
+          aktivdir?: boolean
+          baslq: string
+          enlik?: number | null
+          ev_sahibi?: string
+          id?: string
+          imkanlar?: string[]
+          metr?: number
+          qiymet?: number
+          qonaq?: number
+          rayon: string
+          region: string
+          region_slug: string
+          rey_sayi?: number
+          reyting?: number
+          sahib_id?: string | null
+          sekiller?: string[]
+          slug: string
+          tesvir?: string
+          tip?: string
+          uzunluq?: number | null
+          xidmetler?: string[]
+          yaradilma_tarixi?: string
+          yatag?: number
+          yenilenme_tarixi?: string
+        }
+        Update: {
+          aktivdir?: boolean
+          baslq?: string
+          enlik?: number | null
+          ev_sahibi?: string
+          id?: string
+          imkanlar?: string[]
+          metr?: number
+          qiymet?: number
+          qonaq?: number
+          rayon?: string
+          region?: string
+          region_slug?: string
+          rey_sayi?: number
+          reyting?: number
+          sahib_id?: string | null
+          sekiller?: string[]
+          slug?: string
+          tesvir?: string
+          tip?: string
+          uzunluq?: number | null
+          xidmetler?: string[]
+          yaradilma_tarixi?: string
+          yatag?: number
+          yenilenme_tarixi?: string
+        }
+        Relationships: []
+      }
+      ev_sahibi_muracietleri: {
+        Row: {
+          bolge: string
+          elaqe_telefon: string
+          ev_adi: string
+          id: string
+          istifadeci_id: string
+          qiymet: number
+          rayon: string
+          status: string
+          tesvir: string
+          tip: string
+          yaradilma_tarixi: string
+        }
+        Insert: {
+          bolge: string
+          elaqe_telefon?: string
+          ev_adi: string
+          id?: string
+          istifadeci_id: string
+          qiymet?: number
+          rayon?: string
+          status?: string
+          tesvir?: string
+          tip?: string
+          yaradilma_tarixi?: string
+        }
+        Update: {
+          bolge?: string
+          elaqe_telefon?: string
+          ev_adi?: string
+          id?: string
+          istifadeci_id?: string
+          qiymet?: number
+          rayon?: string
+          status?: string
+          tesvir?: string
+          tip?: string
+          yaradilma_tarixi?: string
+        }
+        Relationships: []
+      }
+      hekayeler: {
+        Row: {
+          ad_soyad: string
+          dil: string
+          id: string
+          istifadeci_id: string | null
+          metn: string
+          seher: string
+          yaradilma_tarixi: string
+        }
+        Insert: {
+          ad_soyad?: string
+          dil?: string
+          id?: string
+          istifadeci_id?: string | null
+          metn?: string
+          seher?: string
+          yaradilma_tarixi?: string
+        }
+        Update: {
+          ad_soyad?: string
+          dil?: string
+          id?: string
+          istifadeci_id?: string | null
+          metn?: string
+          seher?: string
+          yaradilma_tarixi?: string
+        }
+        Relationships: []
+      }
       profiller: {
         Row: {
           ad_soyad: string
@@ -40,6 +193,109 @@ export type Database = {
           yenilenme_tarixi?: string
         }
         Relationships: []
+      }
+      regionlar: {
+        Row: {
+          ad: string
+          id: string
+          merkez_x: number
+          merkez_y: number
+          qisa_tesvir: string
+          sira: number
+          slug: string
+          svg_path: string
+          yaradilma_tarixi: string
+        }
+        Insert: {
+          ad: string
+          id?: string
+          merkez_x?: number
+          merkez_y?: number
+          qisa_tesvir?: string
+          sira?: number
+          slug: string
+          svg_path?: string
+          yaradilma_tarixi?: string
+        }
+        Update: {
+          ad?: string
+          id?: string
+          merkez_x?: number
+          merkez_y?: number
+          qisa_tesvir?: string
+          sira?: number
+          slug?: string
+          svg_path?: string
+          yaradilma_tarixi?: string
+        }
+        Relationships: []
+      }
+      reyler: {
+        Row: {
+          ad_soyad: string
+          elan_id: string
+          id: string
+          istifadeci_id: string | null
+          metn: string
+          ulduz: number
+          yaradilma_tarixi: string
+        }
+        Insert: {
+          ad_soyad?: string
+          elan_id: string
+          id?: string
+          istifadeci_id?: string | null
+          metn?: string
+          ulduz?: number
+          yaradilma_tarixi?: string
+        }
+        Update: {
+          ad_soyad?: string
+          elan_id?: string
+          id?: string
+          istifadeci_id?: string | null
+          metn?: string
+          ulduz?: number
+          yaradilma_tarixi?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reyler_elan_id_fkey"
+            columns: ["elan_id"]
+            isOneToOne: false
+            referencedRelation: "elanlar"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sevimliler: {
+        Row: {
+          elan_id: string
+          id: string
+          istifadeci_id: string
+          yaradilma_tarixi: string
+        }
+        Insert: {
+          elan_id: string
+          id?: string
+          istifadeci_id: string
+          yaradilma_tarixi?: string
+        }
+        Update: {
+          elan_id?: string
+          id?: string
+          istifadeci_id?: string
+          yaradilma_tarixi?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sevimliler_elan_id_fkey"
+            columns: ["elan_id"]
+            isOneToOne: false
+            referencedRelation: "elanlar"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
