@@ -13,8 +13,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { regionUzreElanlar } from "@/backend/melumat/elanlar";
-import { regionTap } from "@/backend/melumat/regionlar";
+import { useElanlar } from "@/backend/qarmaqlar/useElanlar";
+import { useRegionlar } from "@/backend/qarmaqlar/useRegionlar";
 import { XIDMETLER } from "@/backend/melumat/xidmetler";
 
 const TIP_ETIKETLERI: Record<string, string> = {
@@ -41,8 +41,9 @@ const REYTING_ARALIQI = [
 const RegionDetal = () => {
   const { slug = "" } = useParams();
   const navigate = useNavigate();
-  const region = regionTap(slug);
-  const butunElanlar = useMemo(() => regionUzreElanlar(slug), [slug]);
+  const { regionlar } = useRegionlar();
+  const region = regionlar.find((r) => r.slug === slug);
+  const { elanlar: butunElanlar } = useElanlar(slug);
 
   const [xidmet, setXidmet] = useState<string | null>(null);
   const [tip, setTip] = useState<string | null>(null);
@@ -192,7 +193,7 @@ const RegionDetal = () => {
               {region.ad}
             </h1>
             <p className="text-muted-foreground mt-1">
-              {elanlar.length} elan tapıldı · {region.qisaTesvir}
+              {elanlar.length} elan tapıldı · {region.qisa_tesvir}
             </p>
           </div>
 
@@ -265,7 +266,7 @@ const RegionDetal = () => {
                         </div>
                         <Button
                           size="sm"
-                          onClick={() => navigate(`/elan/${e.id}`)}
+                          onClick={() => navigate(`/elan/${e.slug}`)}
                           className="rounded-full bg-gradient-warm text-primary-foreground hover:shadow-gold"
                         >
                           Təklifə bax
