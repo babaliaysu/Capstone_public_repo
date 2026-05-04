@@ -135,7 +135,7 @@ const ElanDetal = () => {
                   </span>
                   <span className="inline-flex items-center gap-1">
                     <Star className="h-4 w-4 fill-gold text-gold" />
-                    {elan.reyting} ({elan.reyler} rəy)
+                    {elan.reyting} ({elan.rey_sayi} rəy)
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">
@@ -213,7 +213,7 @@ const ElanDetal = () => {
                 <div className="rounded-2xl overflow-hidden ring-1 ring-border shadow-soft aspect-video">
                   <iframe
                     title={`${elan.baslq} xəritə`}
-                    src={`https://www.google.com/maps?q=${elan.koordinat[0]},${elan.koordinat[1]}&z=12&output=embed`}
+                    src={`https://www.google.com/maps?q=${elan.enlik ?? 40.4},${elan.uzunluq ?? 49.85}&z=12&output=embed`}
                     width="100%"
                     height="100%"
                     style={{ border: 0 }}
@@ -231,10 +231,10 @@ const ElanDetal = () => {
                 <h2 className="font-serif text-2xl mb-4">Ev sahibi ilə əlaqə</h2>
                 <div className="flex items-center gap-4 p-4 rounded-xl bg-secondary/40">
                   <div className="h-14 w-14 rounded-full bg-gradient-warm text-background flex items-center justify-center text-xl font-semibold">
-                    {elan.evSahibi[0]}
+                    {elan.ev_sahibi[0]}
                   </div>
                   <div className="flex-1">
-                    <p className="font-medium">{elan.evSahibi}</p>
+                    <p className="font-medium">{elan.ev_sahibi}</p>
                     <p className="text-xs text-muted-foreground">Ev sahibi</p>
                   </div>
                   <Button variant="outline" size="sm" className="rounded-full">
