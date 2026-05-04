@@ -22,7 +22,7 @@ import { AltPanel } from "@/frontend/komponentler/maket/AltPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { elaniTap } from "@/backend/melumat/elanlar";
+import { useElan } from "@/backend/qarmaqlar/useElanlar";
 import { XIDMETLER } from "@/backend/melumat/xidmetler";
 import { toast } from "sonner";
 
@@ -41,11 +41,23 @@ const IKONLAR: Record<string, typeof Wifi> = {
 const ElanDetal = () => {
   const { id = "" } = useParams();
   const navigate = useNavigate();
-  const elan = elaniTap(id);
+  const { elan, yuklenir } = useElan(id);
 
   const [giris, setGiris] = useState("");
   const [cixis, setCixis] = useState("");
   const [qonaq, setQonaq] = useState(2);
+
+  if (yuklenir) {
+    return (
+      <div className="min-h-screen flex flex-col bg-background">
+        <YuxariPanel />
+        <main className="flex-1 flex items-center justify-center pt-32 pb-20">
+          <p className="text-muted-foreground">Yüklənir...</p>
+        </main>
+        <AltPanel />
+      </div>
+    );
+  }
 
   if (!elan) {
     return (
