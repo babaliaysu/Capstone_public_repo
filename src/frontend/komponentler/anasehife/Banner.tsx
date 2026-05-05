@@ -1,30 +1,18 @@
-// Ana səhifənin başı — video fonu, başlıq və axtarış paneli.
+// Ana səhifənin 2-ci ekranı — başlıq və axtarış paneli.
+// Edit: arxa fon video animasiyası SİLİNDİ. Sakit qradiyent fon istifadə edilir.
 import { useTranslation } from "react-i18next";
 import { ChevronDown, MapPin, Star, Sparkles } from "lucide-react";
 import { AxtarisPaneli } from "./AxtarisPaneli";
-import bannerVideo from "@/frontend/medialar/banner/caucasus-village.mp4.asset.json";
 
 export const Banner = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden">
-      {/* Tam ekran video fonu */}
-      <video
-        src={bannerVideo.url}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-
-      {/* Mətn oxunaqlığı üçün meşə qradiyenti */}
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/40 via-primary/30 to-background/95" />
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/60 via-transparent to-transparent" />
-
-      {/* İncə qızıl işıq aksenti */}
+    <section className="relative min-h-screen w-full overflow-hidden bg-gradient-forest">
+      {/* Sakit dekorativ aksent — animasiya yoxdur */}
       <div className="pointer-events-none absolute top-1/3 right-10 w-[400px] h-[400px] rounded-full bg-gold/10 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-20 -left-20 w-[500px] h-[500px] rounded-full bg-accent/15 blur-3xl" />
+
 
       <div className="container mx-auto px-6 relative z-10 min-h-screen flex flex-col justify-center pt-28 pb-20">
         <div className="max-w-3xl space-y-7">

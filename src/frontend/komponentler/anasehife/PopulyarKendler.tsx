@@ -1,4 +1,5 @@
-// Populyar kəndlər — kart kliki regionlar siyahısına aparır.
+// Populyar kəndlər — sola hizalı başlıq, kiçik kartlar, "Hamısını göstər".
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,55 +21,64 @@ const kendler = [
 
 export const PopulyarKendler = () => {
   const { t } = useTranslation();
+  const [hamisi, setHamisi] = useState(false);
+  const gosterilen = hamisi ? kendler : kendler.slice(0, 6);
 
   return (
     <section className="py-24 bg-background">
       <div className="container mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="font-serif text-4xl md:text-5xl font-medium text-foreground">
-            {t("villages.title")}
-          </h2>
+        {/* Sola hizalanmış başlıq + sağda "Hamısını göstər" */}
+        <div className="flex items-end justify-between mb-10 gap-4">
+          <div>
+            <h2 className="font-serif text-3xl md:text-4xl font-medium text-foreground">
+              {t("villages.title")}
+            </h2>
+            <p className="text-sm text-muted-foreground mt-1">
+              {t("villages.subtitle")}
+            </p>
+          </div>
+          <button
+            onClick={() => setHamisi((v) => !v)}
+            className="text-sm font-semibold text-primary hover:text-accent transition-colors whitespace-nowrap"
+          >
+            {hamisi ? "Daha az göstər" : "Hamısını göstər →"}
+          </button>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {kendler.map((v, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {gosterilen.map((v, i) => (
             <Link
               to={`/regionlar/${v.slug}`}
-              key={v.ad}
-              className="group relative overflow-hidden rounded-2xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer block"
-              style={{ animationDelay: `${i * 80}ms` }}
+              key={v.ad + i}
+              className="group relative overflow-hidden rounded-xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer block"
             >
               <div className="aspect-[4/5] overflow-hidden">
                 <img
                   src={v.sekil}
                   alt={`${v.ad} kəndi, ${v.rayon}`}
                   loading="lazy"
-                  width={1280}
-                  height={896}
                   className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-overlay opacity-90" />
 
-              <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-dark text-background text-xs font-medium">
-                <MapPin className="h-3 w-3" />
+              <div className="absolute top-2 left-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full glass-dark text-background text-[10px] font-medium">
+                <MapPin className="h-2.5 w-2.5" />
                 {v.rayon}
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-background">
-                <h3 className="font-serif text-3xl font-medium mb-1">{v.ad}</h3>
-                <p className="text-sm text-background/80 mb-3 line-clamp-2 max-w-xs">{v.tesvir}</p>
+              <div className="absolute bottom-0 left-0 right-0 p-3 text-background">
+                <h3 className="font-serif text-lg font-medium leading-tight">{v.ad}</h3>
+                <p className="text-[11px] text-background/75 mb-1.5 line-clamp-1">{v.tesvir}</p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs uppercase tracking-wider text-gold font-semibold">
+                  <span className="text-[10px] uppercase tracking-wider text-gold font-semibold">
                     {t("villages.homes", { count: v.evler })}
                   </span>
-                  <span className="w-10 h-10 rounded-full bg-gold/90 text-foreground flex items-center justify-center transition-all duration-500 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-45">
+                  <span className="w-7 h-7 rounded-full bg-gold/90 text-foreground flex items-center justify-center text-xs transition-all duration-500 group-hover:bg-gold group-hover:scale-110">
                     →
                   </span>
                 </div>
               </div>
-
-              <div className="absolute top-0 right-0 w-0 h-0 border-t-[60px] border-r-[60px] border-t-gold border-r-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </Link>
           ))}
         </div>

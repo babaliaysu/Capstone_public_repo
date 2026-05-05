@@ -24,9 +24,9 @@ export const YuxariPanel = () => {
 
   // Yeni naviqasiya bölmələri
   const navItems = [
-    { to: "/regionlar", label: t("nav.regions") },
+    { to: "/regionlar", label: "Kəşf et" },
     { to: "/hekayeler", label: t("nav.stories") },
-    { to: "/sevimliler", label: t("nav.favorites") },
+    { to: "/haqqimizda", label: "Haqqımızda" },
     { to: "/faq", label: "FAQ" },
   ];
 
