@@ -16,6 +16,7 @@ import EviniYerleshdir from "@/frontend/sehifeler/EviniYerleshdir";
 import Hekayeler from "@/frontend/sehifeler/Hekayeler";
 import Sevimliler from "@/frontend/sehifeler/Sevimliler";
 import Faq from "@/frontend/sehifeler/Faq";
+import Haqqimizda from "@/frontend/sehifeler/Haqqimizda";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/hekayeler" element={<Hekayeler />} />
           <Route path="/sevimliler" element={<Sevimliler />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/haqqimizda" element={<Haqqimizda />} />
           <Route path="/evini-yerlesdir" element={<EviniYerleshdir />} />
           <Route path="/elanlar" element={<Regionlar />} />
           <Route path="/giris" element={<Giris />} />
