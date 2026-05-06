@@ -205,69 +205,68 @@ const RegionDetal = () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
               {elanlar.map((e) => {
                 const yekunQiymet = Math.round(e.qiymet * 1.03);
                 return (
                   <article
                     key={e.id}
-                    className="group bg-card rounded-2xl overflow-hidden ring-1 ring-border shadow-soft hover:shadow-elegant transition-all duration-500 grid grid-cols-1 sm:grid-cols-[200px_1fr]"
+                    className="group bg-card rounded-2xl overflow-hidden ring-1 ring-border shadow-soft hover:shadow-elegant transition-all duration-500 hover:-translate-y-1"
                   >
-                    <div className="relative aspect-video sm:aspect-auto overflow-hidden">
+                    <div className="relative aspect-[4/3] overflow-hidden">
                       <img
                         src={e.sekiller[0]}
                         alt={e.baslq}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                         loading="lazy"
                       />
+                      {/* Sol kuncdə xəritə ikonu + kənd adı */}
+                      <div className="absolute top-2 left-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full glass-dark text-background text-[11px] font-semibold backdrop-blur-md">
+                        <MapPin className="h-3 w-3 text-gold" />
+                        {e.rayon}
+                      </div>
                       <div className="absolute top-2 right-2 inline-flex items-center gap-1 px-2 py-0.5 rounded-full glass-dark text-background text-[11px] font-semibold">
                         <Star className="h-3 w-3 fill-gold text-gold" />
                         {e.reyting}
                       </div>
                     </div>
-                    <div className="p-4 flex flex-col">
-                      <div className="flex-1">
-                        <p className="text-[11px] text-muted-foreground inline-flex items-center gap-1">
-                          <MapPin className="h-3 w-3" />
-                          {e.rayon}
-                        </p>
-                        <h3 className="font-serif text-lg font-semibold text-foreground mt-1 group-hover:text-primary transition-colors">
-                          {e.baslq}
-                        </h3>
-                        <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
-                          <span className="inline-flex items-center gap-1">
-                            <Bed className="h-3 w-3" />
-                            {e.yatag} yataq
-                          </span>
-                          <span>· {e.metr} m²</span>
-                          <span>· {TIP_ETIKETLERI[e.tip]}</span>
-                        </div>
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {e.xidmetler.slice(0, 3).map((acar) => {
-                            const x = XIDMETLER.find((y) => y.acar === acar);
-                            if (!x) return null;
-                            return (
-                              <span
-                                key={acar}
-                                className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
-                              >
-                                {x.ad}
-                              </span>
-                            );
-                          })}
-                        </div>
+                    <div className="p-4">
+                      <h3 className="font-serif text-base font-semibold text-foreground group-hover:text-primary transition-colors line-clamp-1">
+                        {e.baslq}
+                      </h3>
+                      <div className="flex items-center gap-2 text-[11px] text-muted-foreground mt-1">
+                        <span className="inline-flex items-center gap-1">
+                          <Bed className="h-3 w-3" />
+                          {e.yatag}
+                        </span>
+                        <span>· {e.metr}m²</span>
+                        <span>· {TIP_ETIKETLERI[e.tip]}</span>
                       </div>
-                      <div className="mt-3 flex items-center justify-between">
+                      <div className="flex flex-wrap gap-1 mt-2 min-h-[20px]">
+                        {e.xidmetler.slice(0, 3).map((acar) => {
+                          const x = XIDMETLER.find((y) => y.acar === acar);
+                          if (!x) return null;
+                          return (
+                            <span
+                              key={acar}
+                              className="text-[10px] px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground"
+                            >
+                              {x.ad}
+                            </span>
+                          );
+                        })}
+                      </div>
+                      <div className="mt-3 pt-3 border-t border-border flex items-center justify-between">
                         <div>
-                          <span className="font-serif text-xl font-semibold text-foreground">
+                          <span className="font-serif text-lg font-semibold text-foreground">
                             {yekunQiymet}₼
                           </span>
-                          <span className="text-xs text-muted-foreground"> / gecə</span>
+                          <span className="text-[11px] text-muted-foreground"> / gecə</span>
                         </div>
                         <Button
                           size="sm"
                           onClick={() => navigate(`/elan/${e.slug}`)}
-                          className="rounded-full bg-gradient-warm text-primary-foreground hover:shadow-gold"
+                          className="rounded-full bg-gradient-warm text-primary-foreground hover:shadow-gold h-8 text-xs"
                         >
                           Təklifə bax
                           <ArrowRight className="ml-1 h-3 w-3" />
