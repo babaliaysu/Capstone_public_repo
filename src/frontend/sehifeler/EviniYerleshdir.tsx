@@ -174,6 +174,20 @@ const EviniYerleshdir = () => {
                   placeholder="+994 ..."
                 />
               </div>
+              {/* Boş gün aralığı — kəndlinin qonaq qəbul edə biləcəyi vaxt */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Boş günlər (başlama)</Label>
+                  <Input type="date" value={bosBaslama} onChange={(e) => setBosBaslama(e.target.value)} />
+                </div>
+                <div>
+                  <Label>Boş günlər (bitmə)</Label>
+                  <Input type="date" value={bosBitme} onChange={(e) => setBosBitme(e.target.value)} />
+                </div>
+              </div>
+              <p className="text-[11px] text-muted-foreground -mt-2">
+                Qonaq bu aralıqda axtardığı zaman evin nəticələrdə görünəcək.
+              </p>
             </section>
 
             <Button
