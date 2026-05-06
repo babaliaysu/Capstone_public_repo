@@ -18,6 +18,8 @@ export type Database = {
         Row: {
           aktivdir: boolean
           baslq: string
+          bos_gun_baslama: string | null
+          bos_gun_bitme: string | null
           enlik: number | null
           ev_sahibi: string
           id: string
@@ -44,6 +46,8 @@ export type Database = {
         Insert: {
           aktivdir?: boolean
           baslq: string
+          bos_gun_baslama?: string | null
+          bos_gun_bitme?: string | null
           enlik?: number | null
           ev_sahibi?: string
           id?: string
@@ -70,6 +74,8 @@ export type Database = {
         Update: {
           aktivdir?: boolean
           baslq?: string
+          bos_gun_baslama?: string | null
+          bos_gun_bitme?: string | null
           enlik?: number | null
           ev_sahibi?: string
           id?: string
@@ -98,6 +104,8 @@ export type Database = {
       ev_sahibi_muracietleri: {
         Row: {
           bolge: string
+          bos_gun_baslama: string | null
+          bos_gun_bitme: string | null
           elaqe_telefon: string
           ev_adi: string
           id: string
@@ -111,6 +119,8 @@ export type Database = {
         }
         Insert: {
           bolge: string
+          bos_gun_baslama?: string | null
+          bos_gun_bitme?: string | null
           elaqe_telefon?: string
           ev_adi: string
           id?: string
@@ -124,6 +134,8 @@ export type Database = {
         }
         Update: {
           bolge?: string
+          bos_gun_baslama?: string | null
+          bos_gun_bitme?: string | null
           elaqe_telefon?: string
           ev_adi?: string
           id?: string
