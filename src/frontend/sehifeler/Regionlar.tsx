@@ -45,7 +45,7 @@ const Regionlar = () => {
                     fill="hsl(200 70% 78%)"
                   />
 
-                  {regionlar.map((r) => {
+                  {regionlar.map((r, i) => {
                     const aktiv = hover === r.slug;
                     return (
                       <Link key={r.slug} to={`/regionlar/${r.slug}`}>
@@ -56,11 +56,12 @@ const Regionlar = () => {
                           fill={aktiv ? "hsl(145 45% 22%)" : "hsl(90 35% 65%)"}
                           stroke="hsl(60 25% 97%)"
                           strokeWidth={2}
-                          className="transition-all duration-300 cursor-pointer hover:opacity-100"
+                          className="transition-all duration-300 cursor-pointer hover:opacity-100 region-twinkle"
                           style={{
                             filter: aktiv
-                              ? "drop-shadow(0 4px 12px hsl(145 45% 22% / 0.5))"
+                              ? "drop-shadow(0 4px 16px hsl(42 75% 55% / 0.7))"
                               : "none",
+                            animationDelay: `${i * 0.6}s`,
                           }}
                         />
                       </Link>
