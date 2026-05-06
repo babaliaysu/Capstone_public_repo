@@ -27,6 +27,8 @@ const EviniYerleshdir = () => {
   const [qiymet, setQiymet] = useState("");
   const [tesvir, setTesvir] = useState("");
   const [telefon, setTelefon] = useState("");
+  const [bosBaslama, setBosBaslama] = useState("");
+  const [bosBitme, setBosBitme] = useState("");
   const [yuklenir, setYuklenir] = useState(false);
 
   const gonder = async (e: React.FormEvent) => {
@@ -50,6 +52,8 @@ const EviniYerleshdir = () => {
       qiymet: Number(qiymet),
       tesvir,
       elaqe_telefon: telefon,
+      bos_gun_baslama: bosBaslama || null,
+      bos_gun_bitme: bosBitme || null,
     });
     setYuklenir(false);
     if (error) {
@@ -170,6 +174,20 @@ const EviniYerleshdir = () => {
                   placeholder="+994 ..."
                 />
               </div>
+              {/* Boş gün aralığı — kəndlinin qonaq qəbul edə biləcəyi vaxt */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label>Boş günlər (başlama)</Label>
+                  <Input type="date" value={bosBaslama} onChange={(e) => setBosBaslama(e.target.value)} />
+                </div>
+                <div>
+                  <Label>Boş günlər (bitmə)</Label>
+                  <Input type="date" value={bosBitme} onChange={(e) => setBosBitme(e.target.value)} />
+                </div>
+              </div>
+              <p className="text-[11px] text-muted-foreground -mt-2">
+                Qonaq bu aralıqda axtardığı zaman evin nəticələrdə görünəcək.
+              </p>
             </section>
 
             <Button
