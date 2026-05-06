@@ -92,6 +92,17 @@ const Regionlar = () => {
                 <p className="text-xs text-muted-foreground text-center mt-4">
                   Stilizə edilmiş xəritə — region üzərinə klik et.
                 </p>
+                {/* Növbə ilə "ulduz parlama" animasiyası — regionlara qızıl parıltı verir */}
+                <style>{`
+                  @keyframes region-twinkle {
+                    0%, 100% { filter: drop-shadow(0 0 0 transparent); }
+                    50% { filter: drop-shadow(0 0 14px hsl(42 75% 55% / 0.85)); }
+                  }
+                  .region-twinkle {
+                    animation: region-twinkle 4s ease-in-out infinite;
+                  }
+                  .region-twinkle:hover { animation: none; }
+                `}</style>
               </div>
 
               {/* Sağ: regionların adlar siyahısı */}
