@@ -27,6 +27,8 @@ const EviniYerleshdir = () => {
   const [qiymet, setQiymet] = useState("");
   const [tesvir, setTesvir] = useState("");
   const [telefon, setTelefon] = useState("");
+  const [bosBaslama, setBosBaslama] = useState("");
+  const [bosBitme, setBosBitme] = useState("");
   const [yuklenir, setYuklenir] = useState(false);
 
   const gonder = async (e: React.FormEvent) => {
