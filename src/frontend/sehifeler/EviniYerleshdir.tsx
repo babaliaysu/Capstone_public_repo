@@ -52,6 +52,8 @@ const EviniYerleshdir = () => {
       qiymet: Number(qiymet),
       tesvir,
       elaqe_telefon: telefon,
+      bos_gun_baslama: bosBaslama || null,
+      bos_gun_bitme: bosBitme || null,
     });
     setYuklenir(false);
     if (error) {
