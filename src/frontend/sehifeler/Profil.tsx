@@ -114,9 +114,11 @@ const Profil = () => {
             </div>
             <div>
               <h1 className="font-serif text-3xl font-medium text-foreground">
-                {profil?.ad_soyad || "Salam!"}
+                Salam!
               </h1>
-              <p className="text-sm text-muted-foreground">{istifadeci.email}</p>
+              <p className="text-base text-foreground/80 font-medium">
+                {profil?.ad_soyad || istifadeci.email}
+              </p>
             </div>
           </div>
 
