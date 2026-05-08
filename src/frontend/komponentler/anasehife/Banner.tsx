@@ -83,10 +83,7 @@ export const Banner = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-background/80 animate-bounce z-10">
-        <span className="text-[11px] uppercase tracking-widest">{t("hero.scrollHint")}</span>
-        <ChevronDown className="h-4 w-4" />
-      </div>
+      {/* Banner-de aşağı surusdur ipucu silindi */}
     </section>
   );
 };

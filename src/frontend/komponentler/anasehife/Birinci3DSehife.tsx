@@ -161,7 +161,7 @@ export const Birinci3DSehife = () => {
           className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-foreground/80 hover:text-foreground transition-colors animate-bounce"
         >
           <span className="text-[11px] uppercase tracking-widest font-semibold">
-            Aşağı kəş et
+            Aşağı sürüşdür
           </span>
           <ChevronDown className="h-5 w-5" />
         </button>
