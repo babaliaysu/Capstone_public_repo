@@ -136,16 +136,27 @@ export const YuxariPanel = () => {
       {open && (
         <div className="md:hidden glass border-t border-border/50 mt-3">
           <div className="container mx-auto px-6 py-4 flex flex-col gap-2">
-            {navItems.map((item, i) => (
-              <Link
-                key={i}
-                to={item.to}
-                onClick={() => setOpen(false)}
-                className="py-2 text-foreground/80 hover:text-primary transition-colors"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item, i) =>
+              item.to ? (
+                <Link
+                  key={i}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="py-2 text-foreground/80 hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ) : (
+                <a
+                  key={i}
+                  href="#"
+                  onClick={item.onClick}
+                  className="py-2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
+                >
+                  {item.label}
+                </a>
+              )
+            )}
             <Link
               to="/evini-yerlesdir"
               onClick={() => setOpen(false)}
