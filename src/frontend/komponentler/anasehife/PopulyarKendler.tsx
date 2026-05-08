@@ -45,14 +45,14 @@ export const PopulyarKendler = () => {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
           {gosterilen.map((v, i) => (
             <Link
               to={`/regionlar/${v.slug}`}
               key={v.ad + i}
               className="group relative overflow-hidden rounded-xl bg-card shadow-soft hover:shadow-elegant transition-all duration-700 cursor-pointer block"
             >
-              <div className="aspect-[4/5] overflow-hidden">
+              <div className="aspect-[3/4] overflow-hidden">
                 <img
                   src={v.sekil}
                   alt={`${v.ad} kəndi, ${v.rayon}`}
