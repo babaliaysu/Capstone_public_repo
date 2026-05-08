@@ -74,16 +74,28 @@ export const YuxariPanel = () => {
         </Link>
 
         <nav className="hidden md:flex items-center gap-1">
-          {navItems.map((item, i) => (
-            <RNavLink
-              key={i}
-              to={item.to}
-              className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
-            >
-              {item.label}
-              <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-2/3 transition-all duration-300" />
-            </RNavLink>
-          ))}
+          {navItems.map((item, i) =>
+            item.to ? (
+              <RNavLink
+                key={i}
+                to={item.to}
+                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-2/3 transition-all duration-300" />
+              </RNavLink>
+            ) : (
+              <a
+                key={i}
+                href="#"
+                onClick={item.onClick}
+                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-300 relative group cursor-pointer"
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-2/3 transition-all duration-300" />
+              </a>
+            )
+          )}
           <Link
             to="/evini-yerlesdir"
             className="ml-2 px-4 py-2 text-sm font-semibold text-accent hover:text-primary transition-colors duration-300 border-l border-border"
