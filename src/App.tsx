@@ -9,6 +9,7 @@ import TezlikleGelir from "@/frontend/sehifeler/TezlikleGelir";
 import Giris from "@/frontend/sehifeler/Giris";
 import Qeydiyyat from "@/frontend/sehifeler/Qeydiyyat";
 import Profil from "@/frontend/sehifeler/Profil";
+import { Navigate } from "react-router-dom";
 import Regionlar from "@/frontend/sehifeler/Regionlar";
 import RegionDetal from "@/frontend/sehifeler/RegionDetal";
 import ElanDetal from "@/frontend/sehifeler/ElanDetal";
@@ -28,7 +29,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AnaSehife />} />
-          <Route path="/regionlar" element={<Regionlar />} />
+          {/* /regionlar artıq ayrı səhifə kimi açılmır — ana səhifədəki "Kəşf et" bölməsinə yönləndirilir */}
+          <Route path="/regionlar" element={<Navigate to="/#ikinci-sehife" replace />} />
           <Route path="/regionlar/:slug" element={<RegionDetal />} />
           <Route path="/elan/:id" element={<ElanDetal />} />
           <Route path="/hekayeler" element={<Hekayeler />} />
