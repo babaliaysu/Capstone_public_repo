@@ -1,7 +1,7 @@
 // Ana səhifənin 2-ci ekranı — başlıq və axtarış paneli.
 // Edit: arxa fon video animasiyası SİLİNDİ. Sakit qradiyent fon istifadə edilir.
 import { useTranslation } from "react-i18next";
-import { ChevronDown, MapPin, Star, Sparkles } from "lucide-react";
+import { MapPin, Star, Sparkles } from "lucide-react";
 import { AxtarisPaneli } from "./AxtarisPaneli";
 
 export const Banner = () => {
@@ -83,10 +83,7 @@ export const Banner = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-background/80 animate-bounce z-10">
-        <span className="text-[11px] uppercase tracking-widest">{t("hero.scrollHint")}</span>
-        <ChevronDown className="h-4 w-4" />
-      </div>
+      {/* Banner-de aşağı surusdur ipucu silindi */}
     </section>
   );
 };

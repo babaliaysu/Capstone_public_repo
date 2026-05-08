@@ -43,6 +43,7 @@ export type Elan = {
   enlik: number | null;
   uzunluq: number | null;
   ev_sahibi: string;
+  yaradilma_tarixi: string;
 };
 
 function normallasdir(row: any): Elan {

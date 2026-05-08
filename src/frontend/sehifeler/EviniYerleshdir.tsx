@@ -1,7 +1,7 @@
 // Evini yerləşdir səhifəsi — kəndlinin evinin məlumatlarını daxil etdiyi sadə form.
 // UI-only — submit zamanı toast göstərir (real DB əlavəsi sonradan).
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Home, MapPin, ImagePlus, Sparkles, ArrowRight } from "lucide-react";
 import { YuxariPanel } from "@/frontend/komponentler/maket/YuxariPanel";
@@ -19,7 +19,16 @@ import { useSessiya } from "@/backend/qarmaqlar/useSessiya";
 
 const EviniYerleshdir = () => {
   const navigate = useNavigate();
-  const { istifadeci } = useSessiya();
+  const { istifadeci, yuklenir: sessiyaYuklenir } = useSessiya();
+
+  // Auth gate — daxil olmayan istifadəçini girişə yönləndir,
+  // sonra avtomatik bu səhifəyə qayıtsın.
+  useEffect(() => {
+    if (!sessiyaYuklenir && !istifadeci) {
+      navigate("/giris?redirect=/evini-yerlesdir", { replace: true });
+    }
+  }, [sessiyaYuklenir, istifadeci, navigate]);
+
   const [bolge, setBolge] = useState<Bolge | null>(null);
   const [xidmetler, setXidmetler] = useState<string[]>([]);
   const [ad, setAd] = useState("");

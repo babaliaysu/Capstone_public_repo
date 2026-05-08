@@ -1,7 +1,7 @@
 // Qeydiyyat — Premium split-screen glassmorphic dizayn (qızıl aksent dominant).
 
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +17,9 @@ import xinaliqDag from "@/frontend/medialar/banner/xinaliq-mountains.jpg";
 const Qeydiyyat = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [params] = useSearchParams();
+  // Auth bitdikdən sonra geri qayıtmaq üçün hədəf URL.
+  const redirect = params.get("redirect") || "/";
   const [yuklenir, setYuklenir] = useState(false);
   const [parolGoster, setParolGoster] = useState(false);
 
@@ -28,13 +31,13 @@ const Qeydiyyat = () => {
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      if (s) navigate("/", { replace: true });
+      if (s) navigate(redirect, { replace: true });
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate("/", { replace: true });
+      if (session) navigate(redirect, { replace: true });
     });
     return () => sub.subscription.unsubscribe();
-  }, [navigate]);
+  }, [navigate, redirect]);
 
   const onSubmit = async (d: QeydiyyatDeyerleri) => {
     setYuklenir(true);
