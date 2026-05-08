@@ -1,7 +1,7 @@
 // Ana səhifənin 2-ci ekranı — başlıq və axtarış paneli.
 // Edit: arxa fon video animasiyası SİLİNDİ. Sakit qradiyent fon istifadə edilir.
 import { useTranslation } from "react-i18next";
-import { ChevronDown, MapPin, Star, Sparkles } from "lucide-react";
+import { MapPin, Star, Sparkles } from "lucide-react";
 import { AxtarisPaneli } from "./AxtarisPaneli";
 
 export const Banner = () => {
