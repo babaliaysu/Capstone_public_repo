@@ -22,12 +22,29 @@ export const YuxariPanel = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Yeni naviqasiya bölmələri
-  const navItems = [
-    { to: "/regionlar", label: "Kəşf et" },
-    { to: "/hekayeler", label: t("nav.stories") },
-    { to: "/haqqimizda", label: "Haqqımızda" },
-    { to: "/faq", label: "FAQ" },
+  // Səhifə daxilində id-ə doğru yumşaq sürüşmə.
+  // Əgər ana səhifədə deyiriksə, əvvəlcə "/" -ə qayıdırıq.
+  const fokuslan = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setOpen(false);
+    if (window.location.pathname !== "/") {
+      navigate("/");
+      // routenin mount olmasını gözləyirik
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  // Yeni naviqasiya — bəzi linklər ana səhifədə müvafiq bölməyə fokuslanır,
+  // digərləri ayrı səhifə kimi açılır.
+  const navItems: { label: string; to?: string; onClick?: (e: React.MouseEvent) => void }[] = [
+    { label: "Kəşf et", onClick: fokuslan("ikinci-sehife") },
+    { label: "Hekayələr", onClick: fokuslan("qonaq-reyleri") },
+    { label: "Haqqımızda", to: "/haqqimizda" },
+    { label: "Yardım", to: "/faq" },
   ];
 
   // İstifadəçinin baş hərflərini hesablayır (avatar üçün).
