@@ -15,7 +15,7 @@ const Haqqimizda = () => {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
+        <section id="haqqimizda-hero" className="relative h-[70vh] min-h-[480px] w-full overflow-hidden">
           <img
             src={xinaliq}
             alt="Azərbaycan kənd mənzərəsi"
@@ -165,7 +165,7 @@ const Haqqimizda = () => {
               İstər qonaq, istər ev sahibi ol — Kəndim sənin də hekayənə yer açır.
             </p>
             <div className="flex flex-wrap gap-3 justify-center">
-              <Link to="/regionlar">
+              <Link to="/elanlar">
                 <Button className="rounded-full bg-gold text-gold-foreground hover:bg-gold/90 px-7 h-12">
                   Ev tap
                   <ArrowRight className="ml-2 h-4 w-4" />

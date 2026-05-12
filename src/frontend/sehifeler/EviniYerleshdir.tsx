@@ -78,7 +78,7 @@ const EviniYerleshdir = () => {
       <YuxariPanel />
 
       <main className="flex-1 pt-28 pb-20">
-        <div className="container mx-auto px-6 max-w-3xl">
+        <div id="elan-hero" className="container mx-auto px-6 max-w-3xl">
           <div className="text-center mb-10">
             <h1 className="font-serif text-4xl font-medium text-foreground">
               Evini yerləşdir
@@ -89,6 +89,7 @@ const EviniYerleshdir = () => {
           </div>
 
           <form
+            id="elan-form"
             onSubmit={gonder}
             className="bg-card rounded-2xl p-8 ring-1 ring-border shadow-soft space-y-6"
           >

@@ -66,8 +66,8 @@ const ElanDetal = () => {
         <main className="flex-1 flex items-center justify-center pt-32 pb-20">
           <div className="text-center">
             <h1 className="font-serif text-3xl">Elan tapılmadı</h1>
-            <Link to="/regionlar" className="text-primary underline mt-3 inline-block">
-              Regionlara qayıt
+            <Link to="/elanlar" className="text-primary underline mt-3 inline-block">
+              Bütün elanlara qayıt
             </Link>
           </div>
         </main>

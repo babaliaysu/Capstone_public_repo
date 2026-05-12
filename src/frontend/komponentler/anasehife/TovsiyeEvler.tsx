@@ -75,7 +75,7 @@ export const TovsiyeEvler = () => {
 
                   {/* Yeni etiketi (sol yuxarı) */}
                   {yenidir && (
-                    <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-gold text-foreground text-[10px] font-bold uppercase tracking-wider shadow-md">
+                    <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider shadow-md" style={{ background: 'hsl(38 82% 42%)', color: 'hsl(42 60% 96%)' }}>
                       <Sparkles className="h-2.5 w-2.5" />
                       Yeni
                     </div>

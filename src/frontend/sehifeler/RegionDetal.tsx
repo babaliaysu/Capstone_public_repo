@@ -70,8 +70,8 @@ const RegionDetal = () => {
         <main className="flex-1 flex items-center justify-center pt-32 pb-20">
           <div className="text-center">
             <h1 className="font-serif text-3xl">Region tapılmadı</h1>
-            <Link to="/regionlar" className="text-primary underline mt-3 inline-block">
-              Regionlara qayıt
+            <Link to="/elanlar" className="text-primary underline mt-3 inline-block">
+              Bütün elanlara bax
             </Link>
           </div>
         </main>
@@ -183,7 +183,7 @@ const RegionDetal = () => {
               Ana səhifə
             </Link>
             <ChevronRight className="h-3 w-3" />
-            <Link to="/regionlar" className="hover:text-primary">Regionlar</Link>
+            <Link to="/elanlar" className="hover:text-primary">Elanlar</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-foreground font-medium">{region.ad}</span>
           </nav>

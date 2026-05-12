@@ -112,7 +112,7 @@ const Faq = () => {
       <YuxariPanel />
 
       {/* Hero — tünd yaşıl + qızıl aksent */}
-      <section className="relative pt-32 pb-20 bg-gradient-forest overflow-hidden">
+      <section id="faq-hero" className="relative pt-32 pb-20 bg-gradient-forest overflow-hidden">
         <div className="pointer-events-none absolute -top-32 right-1/4 w-[500px] h-[500px] rounded-full bg-gold/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 -left-20 w-[400px] h-[400px] rounded-full bg-accent/15 blur-3xl" />
 

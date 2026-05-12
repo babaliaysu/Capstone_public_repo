@@ -45,7 +45,8 @@ export const AxtarisPaneli = () => {
         <Button
           size="lg"
           onClick={axtar}
-          className="rounded-xl bg-gradient-warm text-primary-foreground hover:shadow-gold transition-all duration-300 px-6 h-auto md:h-full"
+          className="rounded-xl hover:shadow-gold transition-all duration-300 px-6 h-auto md:h-full border-0 font-semibold"
+          style={{ background: 'linear-gradient(135deg, hsl(150 47% 22%) 0%, hsl(92 36% 36%) 55%, hsl(38 82% 42%) 100%)', color: 'hsl(42 60% 96%)' }}
         >
           <Search className="h-5 w-5 md:mr-2" />
           <span className="md:inline">{t("hero.search")}</span>

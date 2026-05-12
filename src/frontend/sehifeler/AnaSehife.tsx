@@ -9,7 +9,6 @@ import { Banner } from "@/frontend/komponentler/anasehife/Banner";
 import { PopulyarKendler } from "@/frontend/komponentler/anasehife/PopulyarKendler";
 import { NeceIsleyir } from "@/frontend/komponentler/anasehife/NeceIsleyir";
 import { TovsiyeEvler } from "@/frontend/komponentler/anasehife/TovsiyeEvler";
-import { Fealiyyetler } from "@/frontend/komponentler/anasehife/Fealiyyetler";
 import { KendliCagirisi } from "@/frontend/komponentler/anasehife/KendliCagirisi";
 import { Reyler } from "@/frontend/komponentler/anasehife/Reyler";
 
@@ -27,9 +26,10 @@ const AnaSehife = () => {
           <PopulyarKendler />
           <NeceIsleyir />
           <TovsiyeEvler />
-          <Fealiyyetler />
           <KendliCagirisi />
-          <Reyler />
+          <div id="qonaq-reyleri">
+            <Reyler />
+          </div>
         </div>
       </main>
       <AltPanel />

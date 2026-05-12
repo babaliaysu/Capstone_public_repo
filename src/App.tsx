@@ -18,6 +18,8 @@ import Hekayeler from "@/frontend/sehifeler/Hekayeler";
 import Sevimliler from "@/frontend/sehifeler/Sevimliler";
 import Faq from "@/frontend/sehifeler/Faq";
 import Haqqimizda from "@/frontend/sehifeler/Haqqimizda";
+import Elanlarim from "@/frontend/sehifeler/Elanlarim";
+import Rezervasiyalar from "@/frontend/sehifeler/Rezervasiyalar";
 
 const queryClient = new QueryClient();
 
@@ -29,8 +31,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<AnaSehife />} />
-          {/* /regionlar artıq ayrı səhifə kimi açılmır — ana səhifədəki "Kəşf et" bölməsinə yönləndirilir */}
-          <Route path="/regionlar" element={<Navigate to="/#ikinci-sehife" replace />} />
+          {/* /regionlar səhifəsi ləğv edilib, elanlar siyahısına yönləndirilir */}
+          <Route path="/regionlar" element={<Navigate to="/elanlar" replace />} />
           <Route path="/regionlar/:slug" element={<RegionDetal />} />
           <Route path="/elan/:id" element={<ElanDetal />} />
           <Route path="/hekayeler" element={<Hekayeler />} />
@@ -42,6 +44,8 @@ const App = () => (
           <Route path="/giris" element={<Giris />} />
           <Route path="/qeydiyyat" element={<Qeydiyyat />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/elanlarim" element={<Elanlarim />} />
+          <Route path="/rezervasiyalar" element={<Rezervasiyalar />} />
           {/* Köhnə yollar üçün uyğunluq */}
           <Route path="/auth" element={<Giris />} />
           <Route path="/dashboard" element={<Profil />} />

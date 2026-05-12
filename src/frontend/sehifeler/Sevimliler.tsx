@@ -41,7 +41,7 @@ const Sevimliler = () => {
           ) : sevimli.length === 0 ? (
             <div className="text-center py-20 bg-secondary/40 rounded-2xl">
               <p className="text-muted-foreground mb-4">Hələ heç bir ev seçməmisən.</p>
-              <Link to="/regionlar"><Button>Regionlara bax</Button></Link>
+              <Link to="/elanlar"><Button>Bütün elanlara bax</Button></Link>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

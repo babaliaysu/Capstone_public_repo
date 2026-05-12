@@ -6,9 +6,9 @@ export const NeceIsleyir = () => {
   const { t } = useTranslation();
 
   const addimlar = [
-    { ikon: Search, baslq: t("how.step1Title"), tesvir: t("how.step1Desc"), reng: "from-primary to-gold" },
-    { ikon: MousePointerClick, baslq: t("how.step2Title"), tesvir: t("how.step2Desc"), reng: "from-accent to-primary" },
-    { ikon: Heart, baslq: t("how.step3Title"), tesvir: t("how.step3Desc"), reng: "from-gold to-accent" },
+    { ikon: Search, baslq: t("how.step1Title"), tesvir: t("how.step1Desc"), reng: "from-emerald-800 to-emerald-600" },
+    { ikon: MousePointerClick, baslq: t("how.step2Title"), tesvir: t("how.step2Desc"), reng: "from-emerald-700 to-lime-700" },
+    { ikon: Heart, baslq: t("how.step3Title"), tesvir: t("how.step3Desc"), reng: "from-amber-600 to-amber-400" },
   ];
 
   return (

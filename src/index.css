@@ -2,90 +2,127 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Premium Azerbaijan Village Tourism — Design System
-   All colors HSL. Warm earthy palette with gold accents.
-*/
+/* ============================================================
+   KƏNDIM — Premium Azerbaijan Village Tourism Design System
+   Design Movement: "Azərbaycan Torpağı" — Organik Premium Lüks
+
+   Color Philosophy:
+   - Primary:    Deep Emerald  hsl(150 47% 22%)  — meşə, dağ, kənd
+   - Gold:       Copper-Gold   hsl(38 82% 42%)   — günəş, buğda, mis sənəti
+   - Background: Warm Cream    hsl(38 30% 97%)   — istilik, rahatlıq
+   - Navbar:     Always solid dark + white text  — heç vaxt oxunaqsız olmur
+
+   Key Changes vs original:
+   1. Deeper, richer emerald primary (more saturated)
+   2. Warmer, more vivid copper-gold accent
+   3. Creamier background (less yellow-green, more warm)
+   4. Navbar always has solid dark bg → white text = perfect readability
+   5. Added navbar-solid / navbar-transparent utility classes
+   6. nav-link-underline animated gold underline
+   7. Stronger shadows for premium depth
+   ============================================================ */
 
 @layer base {
   :root {
-    /* Surfaces — warm cream meets forest */
-    --background: 60 25% 97%;
-    --foreground: 140 30% 10%;
+    /* ── Surfaces — warm cream ── */
+    --background: 38 30% 97%;
+    --foreground: 150 40% 8%;
 
-    --card: 60 20% 99%;
-    --card-foreground: 140 30% 10%;
+    --card: 40 25% 99%;
+    --card-foreground: 150 40% 8%;
 
-    --popover: 60 20% 99%;
-    --popover-foreground: 140 30% 10%;
+    --popover: 40 25% 99%;
+    --popover-foreground: 150 40% 8%;
 
-    /* Brand — deep forest green + gold */
-    --primary: 145 45% 22%;           /* deep forest */
-    --primary-foreground: 50 40% 96%;
-    --primary-glow: 140 40% 35%;
+    /* ── Brand — deep emerald + copper gold ── */
+    --primary: 150 47% 22%;
+    --primary-foreground: 42 60% 96%;
+    --primary-glow: 145 42% 32%;
 
-    --secondary: 80 20% 90%;
-    --secondary-foreground: 145 35% 18%;
+    --secondary: 85 22% 91%;
+    --secondary-foreground: 150 38% 16%;
 
-    --muted: 80 15% 90%;
-    --muted-foreground: 140 12% 35%;
+    --muted: 80 16% 91%;
+    --muted-foreground: 140 14% 38%;
 
-    --accent: 90 35% 38%;             /* moss green accent */
-    --accent-foreground: 50 40% 96%;
+    --accent: 92 36% 36%;
+    --accent-foreground: 42 60% 96%;
 
-    --gold: 42 70% 50%;
-    --gold-foreground: 145 40% 12%;
+    /* ── Gold — copper warmth ── */
+    --gold: 38 82% 42%;
+    --gold-light: 42 90% 58%;
+    --gold-foreground: 150 42% 10%;
 
-    --destructive: 0 70% 45%;
-    --destructive-foreground: 50 40% 96%;
+    --destructive: 0 68% 42%;
+    --destructive-foreground: 42 60% 96%;
 
-    --border: 80 15% 84%;
-    --input: 80 15% 88%;
-    --ring: 145 45% 22%;
+    --border: 80 16% 82%;
+    --input: 80 16% 86%;
+    --ring: 150 47% 22%;
 
     --radius: 0.875rem;
 
-    /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(60 25% 97%) 0%, hsl(80 25% 90%) 60%, hsl(90 30% 82%) 100%);
-    --gradient-warm: linear-gradient(135deg, hsl(145 45% 22%) 0%, hsl(90 40% 38%) 60%, hsl(42 70% 50%) 100%);
-    --gradient-forest: linear-gradient(160deg, hsl(145 50% 14%) 0%, hsl(140 45% 22%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(145 50% 8% / 0.75) 100%);
+    /* ── Gradients ── */
+    --gradient-hero: linear-gradient(135deg,
+      hsl(38 30% 97%) 0%,
+      hsl(80 22% 91%) 60%,
+      hsl(92 28% 82%) 100%);
 
-    /* Shadows */
-    --shadow-soft: 0 4px 20px -4px hsl(145 30% 10% / 0.08);
-    --shadow-elegant: 0 20px 50px -20px hsl(145 45% 22% / 0.3);
-    --shadow-gold: 0 10px 40px -10px hsl(42 70% 50% / 0.4);
+    --gradient-warm: linear-gradient(135deg,
+      hsl(150 47% 22%) 0%,
+      hsl(92 36% 36%) 55%,
+      hsl(38 82% 42%) 100%);
+
+    --gradient-forest: linear-gradient(160deg,
+      hsl(150 52% 12%) 0%,
+      hsl(148 46% 20%) 100%);
+
+    --gradient-gold: linear-gradient(135deg,
+      hsl(38 82% 42%) 0%,
+      hsl(42 90% 58%) 100%);
+
+    --gradient-overlay: linear-gradient(180deg,
+      transparent 0%,
+      hsl(150 52% 6% / 0.82) 100%);
+
+    /* ── Shadows — deeper for premium feel ── */
+    --shadow-soft:    0 4px 20px -4px hsl(150 32% 8% / 0.10);
+    --shadow-elegant: 0 20px 50px -20px hsl(150 47% 22% / 0.32);
+    --shadow-gold:    0 10px 40px -10px hsl(38 82% 42% / 0.45);
+    --shadow-navbar:  0 2px 24px -4px hsl(150 52% 8% / 0.22);
 
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .dark {
-    --background: 145 30% 7%;
-    --foreground: 50 30% 95%;
+    --background: 150 32% 7%;
+    --foreground: 42 28% 94%;
 
-    --card: 145 25% 10%;
-    --card-foreground: 50 30% 95%;
+    --card: 150 26% 10%;
+    --card-foreground: 42 28% 94%;
 
-    --popover: 145 25% 10%;
-    --popover-foreground: 50 30% 95%;
+    --popover: 150 26% 10%;
+    --popover-foreground: 42 28% 94%;
 
-    --primary: 90 40% 55%;
-    --primary-foreground: 145 40% 8%;
-    --primary-glow: 90 50% 65%;
+    --primary: 92 40% 52%;
+    --primary-foreground: 150 42% 8%;
+    --primary-glow: 92 50% 62%;
 
-    --secondary: 145 20% 16%;
-    --secondary-foreground: 50 30% 95%;
+    --secondary: 150 22% 16%;
+    --secondary-foreground: 42 28% 94%;
 
-    --muted: 145 18% 16%;
-    --muted-foreground: 80 15% 65%;
+    --muted: 150 18% 16%;
+    --muted-foreground: 80 16% 62%;
 
-    --accent: 90 35% 50%;
-    --accent-foreground: 145 40% 8%;
+    --accent: 92 36% 48%;
+    --accent-foreground: 150 42% 8%;
 
-    --gold: 42 75% 60%;
+    --gold: 38 78% 58%;
+    --gold-light: 42 88% 68%;
 
-    --border: 145 20% 18%;
-    --input: 145 20% 16%;
-    --ring: 90 40% 55%;
+    --border: 150 22% 18%;
+    --input: 150 22% 16%;
+    --ring: 92 40% 52%;
   }
 }
 
@@ -93,17 +130,14 @@
   * {
     @apply border-border;
   }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, sans-serif;
     font-feature-settings: 'cv11', 'ss01';
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Fraunces', Georgia, serif;
     font-feature-settings: 'ss01';
@@ -116,28 +150,80 @@
     font-family: 'Fraunces', Georgia, serif;
   }
 
+  /* ── Glass effects ── */
   .glass {
-    background: hsl(40 30% 99% / 0.7);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(40 30% 100% / 0.4);
+    background: hsl(38 30% 99% / 0.72);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid hsl(38 30% 100% / 0.45);
   }
-
   .glass-dark {
-    background: hsl(25 25% 12% / 0.5);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid hsl(40 30% 100% / 0.1);
+    background: hsl(150 40% 8% / 0.55);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid hsl(38 30% 100% / 0.12);
   }
 
+  /* ── Navbar states — always readable ── */
+  .navbar-solid {
+    background: hsl(150 47% 13%);
+    box-shadow: var(--shadow-navbar);
+  }
+  .navbar-transparent {
+    background: hsl(150 47% 8% / 0.60);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+
+  /* ── Text gradients ── */
   .text-gradient-warm {
     background: var(--gradient-warm);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
+  .text-gradient-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
 
-  .shadow-soft { box-shadow: var(--shadow-soft); }
+  /* ── Background gradients ── */
+  .bg-gradient-forest { background: var(--gradient-forest); }
+  .bg-gradient-warm   { background: var(--gradient-warm); }
+  .bg-gradient-gold   { background: var(--gradient-gold); }
+
+  /* ── Shadows ── */
+  .shadow-soft    { box-shadow: var(--shadow-soft); }
   .shadow-elegant { box-shadow: var(--shadow-elegant); }
-  .shadow-gold { box-shadow: var(--shadow-gold); }
+  .shadow-gold    { box-shadow: var(--shadow-gold); }
+
+  /* ── Gold color utilities ── */
+  .text-gold   { color: hsl(var(--gold)); }
+  .bg-gold     { background-color: hsl(var(--gold)); }
+  .border-gold { border-color: hsl(var(--gold)); }
+  .ring-gold   { --tw-ring-color: hsl(var(--gold)); }
+  .hover\:ring-gold:hover { --tw-ring-color: hsl(var(--gold)); }
+
+  /* ── Animated gold underline for nav links ── */
+  .nav-link-underline {
+    position: relative;
+  }
+  .nav-link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: hsl(var(--gold));
+    transition: width 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+    border-radius: 1px;
+  }
+  .nav-link-underline:hover::after,
+  .nav-link-underline.active::after {
+    width: 70%;
+  }
 }

@@ -9,9 +9,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const dilSiyahisi = [
-  { kod: "az", ad: "Azərbaycan", qisa: "AZ", bayraq: "🇦🇿" },
-  { kod: "en", ad: "English",    qisa: "EN", bayraq: "🇬🇧" },
-  { kod: "ru", ad: "Русский",    qisa: "RU", bayraq: "🇷🇺" },
+  { kod: "az", ad: "Azərbaycan", qisa: "AZ", bayraq: "AZ" },
+  { kod: "en", ad: "English",    qisa: "EN", bayraq: "EN" },
+  { kod: "ru", ad: "Русский",    qisa: "RU", bayraq: "RU" },
 ];
 
 export const DilSecici = ({ variant = "default" }: { variant?: "default" | "ghost" }) => {

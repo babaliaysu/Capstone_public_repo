@@ -9,7 +9,7 @@ export const KendliCagirisi = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="py-24 bg-background">
+    <section id="kendli-cagirisi" className="py-24 bg-background">
       <div className="container mx-auto px-6">
         <div className="relative overflow-hidden rounded-3xl">
           <img
@@ -41,7 +41,8 @@ export const KendliCagirisi = () => {
                 <Link to="/evini-yerlesdir">
                   <Button
                     size="lg"
-                    className="rounded-full bg-gold text-foreground hover:bg-gold/90 hover:shadow-gold transition-all duration-300 px-7 py-6 text-base font-semibold group"
+                    className="rounded-full hover:shadow-gold transition-all duration-300 px-7 py-6 text-base font-semibold group border-0"
+                    style={{ background: 'hsl(38 82% 42%)', color: 'hsl(42 60% 96%)' }}
                   >
                     {t("hostCta.button")}
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
@@ -74,3 +75,4 @@ export const KendliCagirisi = () => {
     </section>
   );
 };
+

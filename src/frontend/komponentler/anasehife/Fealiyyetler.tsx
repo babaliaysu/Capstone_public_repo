@@ -27,9 +27,13 @@ export const Fealiyyetler = () => {
                 onClick={() => setAktiv(i)}
                 className={`group inline-flex items-center gap-2.5 px-5 py-3 rounded-full border transition-all duration-300 ${
                   seciliMi
-                    ? "bg-foreground text-background border-foreground shadow-elegant scale-105"
-                    : "bg-card text-foreground border-border hover:border-primary hover:shadow-soft hover:-translate-y-0.5"
+                    ? "shadow-elegant scale-105 border-transparent"
+                    : "bg-card text-foreground border-border hover:shadow-soft hover:-translate-y-0.5"
                 }`}
+                style={seciliMi ? {
+                  background: 'linear-gradient(135deg, hsl(150 47% 22%) 0%, hsl(92 36% 36%) 55%, hsl(38 82% 42%) 100%)',
+                  color: 'hsl(42 60% 96%)'
+                } : {}}
               >
                 <I className={`h-4 w-4 transition-transform duration-300 ${seciliMi ? "text-gold" : "text-primary"} group-hover:rotate-12`} />
                 <span className="font-medium text-sm">{it.ad}</span>

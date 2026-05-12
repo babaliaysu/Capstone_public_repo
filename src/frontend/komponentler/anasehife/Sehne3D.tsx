@@ -66,39 +66,7 @@ const SurunenBuludlar = () => {
   );
 };
 
-// Uzaqda kiçik bir kənd — bir neçə sadə "ev" geometriyası (kub + üçbucaq dam).
-const UzaqKendEvi = ({ position, scale = 1, ton = "#d8b380" }: {
-  position: [number, number, number]; scale?: number; ton?: string;
-}) => (
-  <group position={position} scale={scale}>
-    {/* Divar */}
-    <mesh position={[0, 0.18, 0]} castShadow>
-      <boxGeometry args={[0.5, 0.36, 0.4]} />
-      <meshStandardMaterial color={ton} />
-    </mesh>
-    {/* Dam — yatırılmış kub (rotated cone alternativi) */}
-    <mesh position={[0, 0.46, 0]} rotation={[0, Math.PI / 4, 0]}>
-      <coneGeometry args={[0.4, 0.22, 4]} />
-      <meshStandardMaterial color="#6b3a2a" />
-    </mesh>
-    {/* Pəncərə */}
-    <mesh position={[0, 0.18, 0.21]}>
-      <planeGeometry args={[0.1, 0.08]} />
-      <meshBasicMaterial color="#fff3b0" />
-    </mesh>
-  </group>
-);
 
-const KendQrupu = () => (
-  <group position={[0, -1.6, -1.5]}>
-    <UzaqKendEvi position={[-1.6, 0, 0]} scale={0.9} />
-    <UzaqKendEvi position={[-0.7, -0.1, 0.4]} ton="#e2c193" />
-    <UzaqKendEvi position={[0.4, 0, 0.1]} scale={1.1} />
-    <UzaqKendEvi position={[1.3, -0.05, 0.5]} ton="#cda06a" />
-    <UzaqKendEvi position={[2.2, 0.02, 0]} scale={0.85} />
-    <UzaqKendEvi position={[-2.4, -0.05, 0.3]} scale={0.8} ton="#d6a973" />
-  </group>
-);
 
 export const Sehne3D = ({}: { mouse?: any }) => {
   return (
@@ -112,7 +80,7 @@ export const Sehne3D = ({}: { mouse?: any }) => {
       <Suspense fallback={null}>
         <DagPaneli />
         <SurunenBuludlar />
-        <KendQrupu />
+        {/* KendQrupu ləğv edildi */}
       </Suspense>
       <KameraNefes />
     </Canvas>

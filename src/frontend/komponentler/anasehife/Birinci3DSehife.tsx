@@ -59,8 +59,8 @@ export const Birinci3DSehife = () => {
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background/30 to-transparent" />
 
-      {/* "Kəndim" yazısı — bir az yuxarıda */}
-      <div className="relative z-10 h-full flex flex-col items-center px-6 pt-[18vh]">
+      {/* "Kəndim" yazısı — mərkəzdə */}
+      <div className="relative z-10 h-full flex flex-col items-center justify-center px-6">
         <h1
           className="font-serif font-semibold text-foreground select-none"
           style={{ perspective: "800px", transformStyle: "preserve-3d" }}
@@ -77,9 +77,9 @@ export const Birinci3DSehife = () => {
                   opacity: hazir ? 1 : 0,
                   transitionDelay: `${i * 130}ms`,
                   textShadow:
-                    "0 6px 24px hsl(145 45% 22% / 0.45), 0 2px 0 hsl(42 70% 50% / 0.3)",
+                    "0 6px 24px hsl(150 47% 22% / 0.50), 0 2px 0 hsl(38 82% 42% / 0.35)",
                   background:
-                    "linear-gradient(180deg, hsl(145 45% 22%) 0%, hsl(90 35% 38%) 60%, hsl(42 70% 50%) 100%)",
+                    "linear-gradient(180deg, hsl(150 47% 22%) 0%, hsl(92 36% 36%) 55%, hsl(38 82% 42%) 100%)",
                   WebkitBackgroundClip: "text",
                   backgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -158,7 +158,8 @@ export const Birinci3DSehife = () => {
 
         <button
           onClick={ikinciyeKes}
-          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-foreground/80 hover:text-foreground transition-colors animate-bounce"
+          className="absolute bottom-4 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 transition-colors animate-bounce"
+          style={{ color: "hsl(42 28% 82%)" }}
         >
           <span className="text-[11px] uppercase tracking-widest font-semibold">
             Aşağı sürüşdür
