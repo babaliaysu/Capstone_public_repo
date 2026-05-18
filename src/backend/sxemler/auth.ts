@@ -10,7 +10,7 @@ export const girisSxemi = z.object({
     .max(255),
   parol: z
     .string()
-    .min(6, { message: "Parol ən azı 6 simvol olmalıdır" })
+    .min(8, { message: "Parol ən azı 8 simvol olmalıdır" })
     .max(72),
 });
 export type GirisDeyerleri = z.infer<typeof girisSxemi>;
@@ -30,7 +30,7 @@ export const qeydiyyatSxemi = z
       .max(255),
     parol: z
       .string()
-      .min(6, { message: "Parol ən azı 6 simvol olmalıdır" })
+      .min(8, { message: "Parol ən azı 8 simvol olmalıdır" })
       .max(72),
     parolTesdiqi: z.string().min(6).max(72),
   })
@@ -52,7 +52,7 @@ export const parolDeyisSxemi = z
   .object({
     yeniParol: z
       .string()
-      .min(6, { message: "Parol ən azı 6 simvol olmalıdır" })
+      .min(8, { message: "Parol ən azı 8 simvol olmalıdır" })
       .max(72),
     parolTesdiqi: z.string().min(6).max(72),
   })

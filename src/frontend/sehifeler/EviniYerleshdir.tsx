@@ -16,6 +16,17 @@ import { toast } from "sonner";
 import type { Bolge } from "@/backend/melumat/bolgeler";
 import { supabase } from "@/backend/supabase";
 import { useSessiya } from "@/backend/qarmaqlar/useSessiya";
+import { z } from "zod";
+
+// Ev yerləşdirmə forması üçün validation sxemi
+const evYerlesdirSxemi = z.object({
+  ad: z.string().trim().min(3, "Ev adı ən azı 3 simvol olmalıdır").max(100, "Ev adı maksimum 100 simvol ola bilər"),
+  tesvir: z.string().trim().max(2000, "Təsvir maksimum 2000 simvol ola bilər"),
+  telefon: z.string().trim().regex(/^\+994\s?\d{2}\s?\d{3}\s?\d{2}\s?\d{2}$/, {
+    message: "Telefon nömrəsi düzgün formatda deyil (+994 XX XXX XX XX)"
+  }),
+  qiymet: z.number().min(1, "Qiymət ən azı 1 AZN olmalıdır").max(10000, "Qiymət maksimum 10000 AZN ola bilər"),
+});
 
 const EviniYerleshdir = () => {
   const navigate = useNavigate();
@@ -47,10 +58,25 @@ const EviniYerleshdir = () => {
       navigate("/giris");
       return;
     }
-    if (!ad || !bolge || !qiymet) {
-      toast.error("Ad, bölgə və qiymət mütləqdir.");
+
+    if (!bolge) {
+      toast.error("Bölgə seçilməlidir.");
       return;
     }
+
+    // Validation
+    const validation = evYerlesdirSxemi.safeParse({
+      ad,
+      tesvir,
+      telefon,
+      qiymet: Number(qiymet),
+    });
+
+    if (!validation.success) {
+      toast.error(validation.error.errors[0].message);
+      return;
+    }
+
     setYuklenir(true);
     const { error } = await supabase.from("ev_sahibi_muracietleri").insert({
       istifadeci_id: istifadeci.id,

@@ -58,7 +58,7 @@ export const YuxariPanel = () => {
 
   const navItems: { label: string; to?: string; onClick?: (e: React.MouseEvent) => void }[] = [
     { label: "Kəşf et", onClick: fokuslan("ikinci-sehife", "/") },
-    { label: "Hekayələr", to: "/hekayeler" },
+    { label: "Hekayələr", onClick: fokuslan("qonaq-reyleri", "/") },
     { label: "Haqqımızda", onClick: fokuslan("haqqimizda-hero", "/haqqimizda") },
     { label: "Yardım", onClick: fokuslan("faq-hero", "/faq") },
   ];

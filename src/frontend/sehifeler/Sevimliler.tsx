@@ -1,7 +1,7 @@
 // Sevimlilər səhifəsi — istifadəçinin əlavə etdiyi elanlar.
 
 import { Link } from "react-router-dom";
-import { Heart, MapPin, Star, X } from "lucide-react";
+import { Heart, MapPin, Star, X, ArrowLeft } from "lucide-react";
 import { YuxariPanel } from "@/frontend/komponentler/maket/YuxariPanel";
 import { AltPanel } from "@/frontend/komponentler/maket/AltPanel";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,14 @@ const Sevimliler = () => {
       <YuxariPanel />
       <main className="flex-1 pt-28 pb-20">
         <div className="container mx-auto px-6">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Ana səhifəyə qayıt
+          </Link>
+
           <div className="text-center max-w-2xl mx-auto mb-12">
             <Heart className="h-8 w-8 text-destructive mx-auto mb-3 fill-destructive/20" />
             <h1 className="font-serif text-4xl md:text-5xl font-medium text-foreground">

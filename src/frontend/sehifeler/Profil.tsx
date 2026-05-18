@@ -2,11 +2,11 @@
 // parolunu dəyişdiyi şəxsi kabinet.
 
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LogOut, User, Mail, Lock, Save, KeyRound, X } from "lucide-react";
+import { LogOut, User, Mail, Lock, Save, KeyRound, X, ArrowLeft } from "lucide-react";
 import { YuxariPanel } from "@/frontend/komponentler/maket/YuxariPanel";
 import { AltPanel } from "@/frontend/komponentler/maket/AltPanel";
 import { Button } from "@/components/ui/button";
@@ -107,6 +107,14 @@ const Profil = () => {
 
       <main className="flex-1 pt-32 pb-20">
         <div className="container mx-auto px-6 max-w-2xl">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Ana səhifəyə qayıt
+          </Link>
+
           {/* Başlıq + avatar */}
           <div className="flex items-center gap-4 mb-10">
             <div className="h-20 w-20 rounded-full bg-gradient-warm text-background flex items-center justify-center text-2xl font-semibold ring-4 ring-gold/40 shadow-gold">

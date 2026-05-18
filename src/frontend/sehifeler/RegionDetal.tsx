@@ -1,11 +1,12 @@
 // Region detal səhifəsi — filter bar (5 dropdown), breadcrumbs, listing kartlar.
 
 import { useMemo, useState } from "react";
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronRight, MapPin, Star, Bed, ArrowRight, Home } from "lucide-react";
 import { YuxariPanel } from "@/frontend/komponentler/maket/YuxariPanel";
 import { AltPanel } from "@/frontend/komponentler/maket/AltPanel";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,30 +41,66 @@ const REYTING_ARALIQI = [
 
 const RegionDetal = () => {
   const { slug = "" } = useParams();
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const { regionlar } = useRegionlar();
-  const region = regionlar.find((r) => r.slug === slug);
-  const { elanlar: butunElanlar } = useElanlar(slug);
 
-  const [xidmet, setXidmet] = useState<string | null>(null);
+  // URL-dən bölgə parametrini oxu
+  const bolgeAdi = searchParams.get("bolge");
+
+  // Əgər slug varsa, slug-a görə region tap
+  // Əgər slug yoxdursa amma bolge parametri varsa, bölgə adına görə region tap
+  let region = slug ? regionlar.find((r) => r.slug === slug) : null;
+
+  // Əgər slug ilə region tapılmadı və bolge parametri varsa
+  if (!region && bolgeAdi) {
+    // Bölgə adına görə region tap (rayon adı ilə uyğunlaşdır)
+    region = regionlar.find((r) => r.ad.toLowerCase() === bolgeAdi.toLowerCase());
+  }
+
+  // Əgər slug varsa onu istifadə et, yoxsa bütün elanları gətir
+  const { elanlar: butunElanlar } = useElanlar(slug || undefined);
+
+  const [xidmetler, setXidmetler] = useState<string[]>([]);
   const [tip, setTip] = useState<string | null>(null);
-  const [fealiyyet, setFealiyyet] = useState<string | null>(null);
+  const [fealiyyetler, setFealiyyetler] = useState<string[]>([]);
   const [qiymet, setQiymet] = useState(QIYMET_ARALIQI[0]);
   const [reyting, setReyting] = useState(REYTING_ARALIQI[0]);
 
   // Filterləri tətbiq et
   const elanlar = useMemo(() => {
     return butunElanlar.filter((e) => {
-      if (xidmet && !e.xidmetler.includes(xidmet)) return false;
+      // Əgər bolge parametri varsa və slug yoxdursa, bölgə adına görə filtrə et
+      if (bolgeAdi && !slug) {
+        // Elanın rayon və ya region sahəsi bölgə adı ilə uyğun gəlməlidir
+        const bolgeUygun =
+          e.rayon.toLowerCase().includes(bolgeAdi.toLowerCase()) ||
+          e.region.toLowerCase().includes(bolgeAdi.toLowerCase());
+        if (!bolgeUygun) return false;
+      }
+
+      // Multi-select xidmətlər filtri
+      if (xidmetler.length > 0) {
+        const xidmetUygun = xidmetler.some((x) => e.xidmetler.includes(x));
+        if (!xidmetUygun) return false;
+      }
+
       if (tip && e.tip !== tip) return false;
-      if (fealiyyet && !e.xidmetler.includes(fealiyyet)) return false;
+
+      // Multi-select fəaliyyətlər filtri
+      if (fealiyyetler.length > 0) {
+        const fealiyyetUygun = fealiyyetler.some((f) => e.xidmetler.includes(f));
+        if (!fealiyyetUygun) return false;
+      }
+
       if (e.qiymet < qiymet.min || e.qiymet > qiymet.max) return false;
       if (e.reyting < reyting.min) return false;
       return true;
     });
-  }, [butunElanlar, xidmet, tip, fealiyyet, qiymet, reyting]);
+  }, [butunElanlar, bolgeAdi, slug, xidmetler, tip, fealiyyetler, qiymet, reyting]);
 
-  if (!region) {
+  // Əgər nə slug, nə də bolge parametri yoxdursa və region tapılmadısa
+  if (!region && !bolgeAdi) {
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <YuxariPanel />
@@ -88,20 +125,38 @@ const RegionDetal = () => {
         <div className="container mx-auto px-6">
           {/* FILTER BAR */}
           <div className="bg-card rounded-2xl p-3 ring-1 ring-border shadow-soft flex flex-wrap gap-2 mb-5">
-            {/* Xidmətlər */}
+            {/* Xidmətlər - Multi-select */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="rounded-full">
-                  Xidmətlər: {xidmet ? XIDMETLER.find((x) => x.acar === xidmet)?.ad : "Hamısı"}
+                  Xidmətlər: {xidmetler.length > 0 ? `${xidmetler.length} seçildi` : "Hamısı"}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-popover z-50 max-h-72 overflow-y-auto">
-                <DropdownMenuLabel>Xidmət növü</DropdownMenuLabel>
-                <DropdownMenuItem onClick={() => setXidmet(null)}>Hamısı</DropdownMenuItem>
+                <DropdownMenuLabel>Xidmət növü (çoxlu seçim)</DropdownMenuLabel>
+                <div className="px-2 py-1">
+                  <button
+                    onClick={() => setXidmetler([])}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Hamısını təmizlə
+                  </button>
+                </div>
                 {XIDMETLER.map((x) => (
-                  <DropdownMenuItem key={x.acar} onClick={() => setXidmet(x.acar)}>
-                    {x.ad}
-                  </DropdownMenuItem>
+                  <div
+                    key={x.acar}
+                    className="flex items-center gap-2 px-2 py-2 hover:bg-accent cursor-pointer"
+                    onClick={() => {
+                      setXidmetler((prev) =>
+                        prev.includes(x.acar)
+                          ? prev.filter((id) => id !== x.acar)
+                          : [...prev, x.acar]
+                      );
+                    }}
+                  >
+                    <Checkbox checked={xidmetler.includes(x.acar)} />
+                    <span className="text-sm">{x.ad}</span>
+                  </div>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -123,22 +178,38 @@ const RegionDetal = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Fəaliyyətlər */}
+            {/* Fəaliyyətlər - Multi-select */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="rounded-full">
-                  Fəaliyyətlər:{" "}
-                  {fealiyyet
-                    ? XIDMETLER.find((x) => x.acar === fealiyyet)?.ad
-                    : "Hamısı"}
+                  Fəaliyyətlər: {fealiyyetler.length > 0 ? `${fealiyyetler.length} seçildi` : "Hamısı"}
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-popover z-50 max-h-72 overflow-y-auto">
-                <DropdownMenuItem onClick={() => setFealiyyet(null)}>Hamısı</DropdownMenuItem>
+                <DropdownMenuLabel>Fəaliyyət növü (çoxlu seçim)</DropdownMenuLabel>
+                <div className="px-2 py-1">
+                  <button
+                    onClick={() => setFealiyyetler([])}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    Hamısını təmizlə
+                  </button>
+                </div>
                 {XIDMETLER.map((x) => (
-                  <DropdownMenuItem key={x.acar} onClick={() => setFealiyyet(x.acar)}>
-                    {x.ad}
-                  </DropdownMenuItem>
+                  <div
+                    key={x.acar}
+                    className="flex items-center gap-2 px-2 py-2 hover:bg-accent cursor-pointer"
+                    onClick={() => {
+                      setFealiyyetler((prev) =>
+                        prev.includes(x.acar)
+                          ? prev.filter((id) => id !== x.acar)
+                          : [...prev, x.acar]
+                      );
+                    }}
+                  >
+                    <Checkbox checked={fealiyyetler.includes(x.acar)} />
+                    <span className="text-sm">{x.ad}</span>
+                  </div>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
@@ -184,16 +255,27 @@ const RegionDetal = () => {
             </Link>
             <ChevronRight className="h-3 w-3" />
             <Link to="/elanlar" className="hover:text-primary">Elanlar</Link>
-            <ChevronRight className="h-3 w-3" />
-            <span className="text-foreground font-medium">{region.ad}</span>
+            {region && (
+              <>
+                <ChevronRight className="h-3 w-3" />
+                <span className="text-foreground font-medium">{region.ad}</span>
+              </>
+            )}
+            {!region && bolgeAdi && (
+              <>
+                <ChevronRight className="h-3 w-3" />
+                <span className="text-foreground font-medium">{bolgeAdi}</span>
+              </>
+            )}
           </nav>
 
           <div className="mb-8">
             <h1 className="font-serif text-3xl md:text-4xl font-medium text-foreground">
-              {region.ad}
+              {region ? region.ad : bolgeAdi || "Bütün Elanlar"}
             </h1>
             <p className="text-muted-foreground mt-1">
-              {elanlar.length} elan tapıldı · {region.qisa_tesvir}
+              {elanlar.length} elan tapıldı
+              {region && ` · ${region.qisa_tesvir}`}
             </p>
           </div>
 

@@ -24,6 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useElan } from "@/backend/qarmaqlar/useElanlar";
 import { XIDMETLER } from "@/backend/melumat/xidmetler";
+import { KOMISSIYA_CARPANI } from "@/backend/melumat/sabitler";
 import { toast } from "sonner";
 
 // İmkan adı → ikon uyğunlaşdırması
@@ -36,6 +37,17 @@ const IKONLAR: Record<string, typeof Wifi> = {
   "Bağça": Trees,
   "Səhər yeməyi": Coffee,
   "Hovuz": Trees,
+};
+
+// Koordinatları təsdiqləyən funksiya
+const validateCoordinates = (lat: number | null, lng: number | null): { lat: number; lng: number } => {
+  const defaultLat = 40.4; // Bakı
+  const defaultLng = 49.85;
+
+  const validLat = lat && !isNaN(lat) && lat >= -90 && lat <= 90 ? lat : defaultLat;
+  const validLng = lng && !isNaN(lng) && lng >= -180 && lng <= 180 ? lng : defaultLng;
+
+  return { lat: validLat, lng: validLng };
 };
 
 const ElanDetal = () => {
@@ -76,7 +88,7 @@ const ElanDetal = () => {
     );
   }
 
-  const yekunQiymet = Math.round(elan.qiymet * 1.03);
+  const yekunQiymet = Math.round(elan.qiymet * KOMISSIYA_CARPANI);
   const gece = giris && cixis
     ? Math.max(1, Math.round((+new Date(cixis) - +new Date(giris)) / 86400000))
     : 0;
@@ -211,15 +223,22 @@ const ElanDetal = () => {
               <div className="border-t border-border mt-6 pt-6">
                 <h2 className="font-serif text-2xl mb-4">Yerləşmə xəritədə</h2>
                 <div className="rounded-2xl overflow-hidden ring-1 ring-border shadow-soft aspect-video">
-                  <iframe
-                    title={`${elan.baslq} xəritə`}
-                    src={`https://www.google.com/maps?q=${elan.enlik ?? 40.4},${elan.uzunluq ?? 49.85}&z=12&output=embed`}
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
+                  {(() => {
+                    const { lat, lng } = validateCoordinates(elan.enlik, elan.uzunluq);
+                    const mapUrl = `https://www.google.com/maps?q=${encodeURIComponent(lat)},${encodeURIComponent(lng)}&z=12&output=embed`;
+                    return (
+                      <iframe
+                        title={`${elan.baslq} xəritə`}
+                        src={mapUrl}
+                        width="100%"
+                        height="100%"
+                        style={{ border: 0 }}
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        sandbox="allow-scripts allow-same-origin"
+                      />
+                    );
+                  })()}
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
                   📍 {elan.rayon} · Dəqiq ünvan rezervasiya təsdiqindən sonra paylaşılır

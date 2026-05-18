@@ -1,3 +1,3 @@
-# Welcome to your Lovable project
+# Kəndim - Azərbaycan Kənd Turizmi Platforması
 
-TODO: Document your project here
+Azərbaycanın kəndlərində ev kirayəsi və turizm platforması.

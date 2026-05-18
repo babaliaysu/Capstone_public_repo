@@ -17,6 +17,14 @@ const Rezervasiyalar = () => {
       <YuxariPanel />
       <main className="flex-1 pt-28 pb-20">
         <div className="container mx-auto px-6 max-w-6xl">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary mb-6 transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Ana səhifəyə qayıt
+          </Link>
+
           <div className="mb-10">
             <h1 className="font-serif text-4xl font-medium text-foreground mb-2">
               Rezervasiyalarım

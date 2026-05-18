@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/backend/supabase";
+import { toast } from "sonner";
 import home1 from "@/frontend/medialar/evler/home1.jpg";
 import home2 from "@/frontend/medialar/evler/home2.jpg";
 import home3 from "@/frontend/medialar/evler/home3.jpg";
@@ -65,13 +66,18 @@ export function useElanlar(regionSlug?: string) {
   useEffect(() => {
     let aktiv = true;
     setYuklenir(true);
+    setXeta(null); // Xətanı sıfırla
     (async () => {
       let q = supabase.from("elanlar").select("*").eq("aktivdir", true);
       if (regionSlug) q = q.eq("region_slug", regionSlug);
       const { data, error } = await q.order("reyting", { ascending: false });
       if (!aktiv) return;
-      if (error) setXeta(error.message);
-      else setElanlar((data ?? []).map(normallasdir));
+      if (error) {
+        setXeta(error.message);
+        toast.error(`Elanlar yüklənərkən xəta: ${error.message}`);
+      } else {
+        setElanlar((data ?? []).map(normallasdir));
+      }
       setYuklenir(false);
     })();
     return () => { aktiv = false; };

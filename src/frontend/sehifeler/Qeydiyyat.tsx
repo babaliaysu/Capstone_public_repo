@@ -1,6 +1,6 @@
 // Qeydiyyat — Premium split-screen glassmorphic dizayn (qızıl aksent dominant).
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
@@ -19,7 +19,7 @@ const Qeydiyyat = () => {
   const navigate = useNavigate();
   const [params] = useSearchParams();
   // Auth bitdikdən sonra geri qayıtmaq üçün hədəf URL.
-  const redirect = params.get("redirect") || "/";
+  const redirectRef = useRef(params.get("redirect") || "/");
   const [yuklenir, setYuklenir] = useState(false);
   const [parolGoster, setParolGoster] = useState(false);
 
@@ -31,17 +31,17 @@ const Qeydiyyat = () => {
 
   useEffect(() => {
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => {
-      if (s) navigate(redirect, { replace: true });
+      if (s) navigate(redirectRef.current, { replace: true });
     });
     supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session) navigate(redirect, { replace: true });
+      if (session) navigate(redirectRef.current, { replace: true });
     });
     return () => sub.subscription.unsubscribe();
-  }, [navigate, redirect]);
+  }, [navigate]);
 
   const onSubmit = async (d: QeydiyyatDeyerleri) => {
     setYuklenir(true);
-    const { error } = await supabase.auth.signUp({
+    const { data: authData, error } = await supabase.auth.signUp({
       email: d.email,
       password: d.parol,
       options: {
@@ -49,6 +49,16 @@ const Qeydiyyat = () => {
         data: { ad_soyad: d.adSoyad },
       },
     });
+
+    // Əgər qeydiyyat uğurlu olubsa və istifadəçi yaradılıbsa, profil cədvəlinə əlavə et
+    if (!error && authData.user) {
+      await supabase.from("profiller").insert({
+        istifadeci_id: authData.user.id,
+        ad_soyad: d.adSoyad,
+        email: d.email,
+      });
+    }
+
     setYuklenir(false);
     if (error) {
       if (error.message.includes("already")) {
@@ -143,13 +153,14 @@ const Qeydiyyat = () => {
                         type={parolGoster ? "text" : "password"}
                         {...register("parol")}
                         className="pl-10 pr-10 h-11 bg-background/5 border-background/20 text-background placeholder:text-background/40 focus-visible:ring-gold focus-visible:border-gold/50"
-                        placeholder="ən az 6"
+                        placeholder="ən az 8"
                       />
                       <button
                         type="button"
                         onClick={() => setParolGoster((p) => !p)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-background/50 hover:text-gold"
-                        tabIndex={-1}
+                        aria-label={parolGoster ? "Parolu gizlət" : "Parolu göstər"}
+                        aria-pressed={parolGoster}
                       >
                         {parolGoster ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
