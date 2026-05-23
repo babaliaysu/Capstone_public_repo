@@ -1,8 +1,14 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  // DÜZƏLİŞ: Bütün mümkün js, ts, jsx, tsx fayllarını əhatə etdik
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -112,5 +118,6 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  // DÜZƏLİŞ: require əvəzinə yuxarıda import etdiyimiz modulu yazdıq
+  plugins: [tailwindcssAnimate],
 } satisfies Config;
