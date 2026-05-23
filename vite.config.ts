@@ -5,7 +5,7 @@ import path from "path";
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => ({
   // DƏYİŞİKLİK BURADADIR: GitHub və Lokal mühiti ayırdıq
-  base: command === 'build' ? '/Capstone_public_repo/' : '/',
+  base: '/',
   
   server: {
     host: "::",
