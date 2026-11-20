@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -9,7 +9,6 @@ import TezlikleGelir from "@/frontend/sehifeler/TezlikleGelir";
 import Giris from "@/frontend/sehifeler/Giris";
 import Qeydiyyat from "@/frontend/sehifeler/Qeydiyyat";
 import Profil from "@/frontend/sehifeler/Profil";
-import { Navigate } from "react-router-dom";
 import RegionDetal from "@/frontend/sehifeler/RegionDetal";
 import ElanDetal from "@/frontend/sehifeler/ElanDetal";
 import EviniYerleshdir from "@/frontend/sehifeler/EviniYerleshdir";
@@ -24,7 +23,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 dəqiqə
-      gcTime: 10 * 60 * 1000, // 10 dəqiqə (əvvəllər cacheTime)
+      gcTime: 10 * 60 * 1000, // 10 dəqiqə
       retry: 1,
       refetchOnWindowFocus: false,
       refetchOnReconnect: true,
@@ -40,7 +39,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<AnaSehife />} />
           <Route path="/regionlar" element={<Navigate to="/" replace />} />
@@ -64,7 +63,7 @@ const App = () => (
           <Route path="/host" element={<EviniYerleshdir />} />
           <Route path="*" element={<TapilmadiSehife />} />
         </Routes>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+      </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
 );
