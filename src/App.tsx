@@ -64,7 +64,7 @@ const App = () => (
           <Route path="/host" element={<EviniYerleshdir />} />
           <Route path="*" element={<TapilmadiSehife />} />
         </Routes>
-      </BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
     </TooltipProvider>
   </QueryClientProvider>
 );
